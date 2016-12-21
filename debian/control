@@ -1,15 +1,14 @@
 Source: siconos
-Section: lisp
-Priority: optional
-Maintainer: Stephen Sinclair <radarsat1@gmail.com>
-Build-Depends: debhelper (>=9)
+Maintainer: Siconos Team <siconos-team@lists.gforge.inria.fr>
+Section: science
+Priority: extra
+Homepage: http://siconos.gforge.inria.fr
+Vcs-Git: https://github.com/siconos/siconos
 Standards-Version: 3.9.6
-Homepage: <insert the upstream URL, if relevant>
-#Vcs-Git: git://anonscm.debian.org/collab-maint/siconos.git
-#Vcs-Browser: http://anonscm.debian.org/cgit/collab-maint/siconos.git/
+Build-Depends: debhelper (>= 9), dh-python, cmake (>= 3.0.2), gfortran, g++ (>= 4.5), libboost-dev (>= 1.47), libboost-filesystem-dev, libboost-serialization-dev, libgmp-dev, libhdf5-dev, libopenblas-dev, liblapacke-dev, libopenmpi-dev, libscalapack-mpi-dev, libscotchmetis-dev, libmumps-dev, libbullet-dev, python, python-all-dev, python-numpy, lp-solve, liblpsolve55-dev, swig3.0 (>= 2.0.7), libsuitesparse-dev
 
 Package: siconos
-Architecture: all
-Depends: ${misc:Depends}, emacsen-common (>= 2.0.8), emacs | emacsen,
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}, openssh-client, python-lxml, python-matplotlib, python-scipy, python-h5py, python-vtk, cmake (>= 3.0.2), libboost-dev (>= 1.47), lp-solve, libgmp-dev
+Description: modeling and simulation of nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems

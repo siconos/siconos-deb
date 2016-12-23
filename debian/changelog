@@ -1,4 +1,4 @@
-siconos (4.0.0-1) unstable; urgency=medium
+siconos (4.0.0-1) xenial; urgency=medium
 
   * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
 

@@ -1,3 +1,9 @@
+siconos (4.0.0-1ubuntu1) xenial; urgency=medium
+
+  * Add sphinxcontrib-bibtex and -doxylink, needed to build html docs.
+
+ -- Stephen Sinclair <radarsat1@gmail.com>  Fri, 23 Dec 2016 17:51:23 -0300
+
 siconos (4.0.0-1) xenial; urgency=medium
 
   * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>

@@ -27,12 +27,6 @@ override_dh_auto_clean:
 	      Docs/sphinx/reference/siconos_api_reference.rst
 
 override_dh_auto_configure:
-# FIXME: This easy_install should not be here, it's obviously a huge
-# no-no, but apparently sphinxcontrib-bibtex is not yet accepted into
-# Debian.  It is needed only for build-time documentation generating,
-# but is not a run-time dependency.
-# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=800358
-	easy_install --user sphinxcontrib-bibtex
 	dh_auto_configure -- \
 		-DFORCE_SKIP_RPATH=1 \
 		-DNO_RUNTIME_BUILD_DEP=1 \
@@ -64,8 +58,10 @@ override_dh_auto_install:
 
 # launch 'make doc' with correct paths to generate docs; this should
 # go in 'build', but it must be done after install due to sphinx
-# needing to load SWIG-compiled modules during doc build
-	env PYTHONPATH=$(CURDIR)/debian/tmp/$(wildcard /usr/lib/python2*/dist-packages) LD_LIBRARY_PATH=$(LIBDIR) $(MAKE) -C $(BUILDDIR) doc
+# needing to load SWIG-compiled modules during doc build.
+
+# FIXME: remove $(CURDIR)/debian when sphinxcontrib packages become available.
+	env PYTHONPATH=$(CURDIR)/debian/tmp/$(wildcard /usr/lib/python2*/dist-packages):$(CURDIR)/debian LD_LIBRARY_PATH=$(LIBDIR) $(MAKE) -C $(BUILDDIR) doc
 	dh_installdocs -p siconos-doc $(BUILDDIR)/Docs/build/html
 	dh_numpy
 

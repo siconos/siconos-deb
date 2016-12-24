@@ -1,3 +1,9 @@
+siconos (4.0.0-1ubuntu3) xenial; urgency=medium
+
+  * Move pybtex_docutils.py so that it can be found without entry_point
+
+ -- Stephen Sinclair <radarsat1@gmail.com>  Sat, 24 Dec 2016 17:13:53 -0300
+
 siconos (4.0.0-1ubuntu2) xenial; urgency=medium
 
   * Add Python dependencies needed for sphinxcontrib-bibtex and sphinxcontrib-doxylink.

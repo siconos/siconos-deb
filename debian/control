@@ -5,7 +5,7 @@ Priority: extra
 Homepage: http://siconos.gforge.inria.fr
 Vcs-Git: https://github.com/siconos/siconos
 Standards-Version: 3.9.8
-Build-Depends: debhelper (>= 9), dh-python, cmake (>= 3.0.2), gfortran, clang, libboost-dev (>= 1.47), libboost-filesystem-dev, libboost-serialization-dev, libgmp-dev, libhdf5-dev, libopenblas-dev, liblapacke-dev, libopenmpi-dev, libscalapack-mpi-dev, libscotchmetis-dev, libmumps-dev, libbullet-dev, python, python-all-dev, python-numpy, python-lxml, lp-solve, liblpsolve55-dev, swig3.0 (>= 2.0.7), libsuitesparse-dev, doxygen, python-sphinx, python-sphinx-bootstrap-theme, graphviz
+Build-Depends: debhelper (>= 9), dh-python, cmake (>= 3.0.2), gfortran, clang, libboost-dev (>= 1.47), libboost-filesystem-dev, libboost-serialization-dev, libgmp-dev, libhdf5-dev, libopenblas-dev, liblapacke-dev, libopenmpi-dev, libscalapack-mpi-dev, libscotchmetis-dev, libmumps-dev, libbullet-dev, python, python-all-dev, python-numpy, python-lxml, lp-solve, liblpsolve55-dev, swig3.0 (>= 2.0.7), libsuitesparse-dev, doxygen, python-sphinx, python-sphinx-bootstrap-theme, graphviz, pybtex (>= 0.16)
 X-Python-Version: >= 2.6
 
 Package: siconos

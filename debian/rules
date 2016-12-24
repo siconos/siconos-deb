@@ -65,4 +65,8 @@ override_dh_auto_install:
 	dh_installdocs -p siconos-doc $(BUILDDIR)/Docs/build/html
 	dh_numpy
 
+# Due to: "dh_sphinxdoc: error: unknown JavaScript code: debian/siconos-doc/usr/share/doc/siconos-doc/html/_static/doctools.js"
+override_dh_sphinxdoc:
+	dh_sphinxdoc -X bootstrap-sphinx.js -X doctools.js -X jquery-1.11.1.js -X jquery.js -X searchtools.js -X underscore-1.3.1.js -X underscore.js -X websupport.js
+
 Testsuite: autopkgtest-pkg-python

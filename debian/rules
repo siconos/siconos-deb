@@ -6,8 +6,8 @@
 # export CXX=mpicxx
 
 # Build with clang because g++-6 gives some errors on this version of Siconos
-export CC=clang
-export CXX=clang++
+export CC=/usr/lib/ccache/clang
+export CXX=/usr/lib/ccache/clang++
 
 export DEB_BUILD_OPTIONS="parallel=4"
 

@@ -1,3 +1,11 @@
+siconos (4.0.0-1ubuntu4) xenial; urgency=medium
+
+  * Remove pybtex and make apt dependency with docutils; add pybtex-docutils and latexcodec.
+  * Replace some doc javascript with packages (lintian suggestion)
+  * Fix lintian errors regarding docs js and stp file permissions
+
+ -- Stephen Sinclair <radarsat1@gmail.com>  Mon, 26 Dec 2016 13:16:34 -0300
+
 siconos (4.0.0-1ubuntu3) xenial; urgency=medium
 
   * Move pybtex_docutils.py so that it can be found without entry_point

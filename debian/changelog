@@ -1,3 +1,9 @@
+siconos (4.0.0-1ubuntu7) xenial; urgency=medium
+
+  * Missing comma in Depends
+
+ -- Stephen Sinclair <radarsat1@gmail.com>  Mon, 26 Dec 2016 18:39:37 -0300
+
 siconos (4.0.0-1ubuntu6) xenial; urgency=medium
 
   * Change DEB_HOST_GNU_TYPE to DEB_HOST_MULTIARCH to fix i386 arch build.

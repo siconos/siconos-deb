@@ -1,3 +1,10 @@
+siconos (4.0.0-1ubuntu6) xenial; urgency=medium
+
+  * Change DEB_HOST_GNU_TYPE to DEB_HOST_MULTIARCH to fix i386 arch build.
+  * Fix dependencies.
+
+ -- Stephen Sinclair <radarsat1@gmail.com>  Mon, 26 Dec 2016 17:13:52 -0300
+
 siconos (4.0.0-1ubuntu5) xenial; urgency=medium
 
   * Forgot to remove ccache clang/clang++

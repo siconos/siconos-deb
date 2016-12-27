@@ -1,3 +1,4 @@
+usr/share/siconos/CMakeLists.txt
 usr/share/siconos/cmake/*
 usr/bin/siconos
 usr/include/siconos/SiconosConfig.h

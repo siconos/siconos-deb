@@ -11,6 +11,8 @@ export CXX=clang++
 
 export DEB_BUILD_OPTIONS="parallel=4"
 
+export LDFLAGS='-Wl,--as-needed'
+
 BUILDDIR=$(CURDIR)/obj-$(DEB_HOST_GNU_TYPE)
 LIBDIR=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
 DOCDIR=$(CURDIR)/debian/siconos-doc/usr/share/doc/siconos-doc

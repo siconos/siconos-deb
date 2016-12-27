@@ -41,9 +41,6 @@ override_dh_auto_configure:
 		-DWITH_DOCUMENTATION=1 \
 		-DWITH_DOXY2SWIG=1
 
-# Remove exec permissions of stp files (lintian error)
-	find $(BUILDDIR) -name \*.stp -exec chmod 644 {} \;
-
 # Error: FindMUMPS.cmake:47 get_filename_component called with incorrect number of arguments
 # -DWITH_MUMPS=1 \
 
@@ -70,6 +67,19 @@ override_dh_auto_install:
 	env PYTHONPATH=$(CURDIR)/debian/tmp/$(wildcard /usr/lib/python2*/dist-packages):$(CURDIR)/debian/python2.7/site-packages LD_LIBRARY_PATH=$(LIBDIR) $(MAKE) -C $(BUILDDIR) doc
 	dh_installdocs -p siconos-doc $(BUILDDIR)/Docs/build/html
 	dh_numpy
+
+override_dh_fixperms:
+	dh_fixperms
+# Remove exec permissions of stp/step/cpp/h files (lintian error)
+	find debian/siconos-examples -name \*.stp -exec chmod 644 {} \;
+	find debian/siconos-examples -name \*.step -exec chmod 644 {} \;
+	find debian/siconos-examples -name \*.cpp -exec chmod 644 {} \;
+	find debian/siconos-examples -name \*.h -exec chmod 644 {} \;
+# Remove unwanted files
+	find debian/siconos-examples -name Thumb.db -exec rm -v {} \;
+	rm debian/siconos-examples/usr/share/siconos/examples/Robotics/HuMAns_pa10/RobotSim/lib/pa10.tar.gz
+	find debian/siconos-examples/usr/share/siconos/examples/Mechanics/Mechanisms -name env.sh -exec rm -v {} \;
+	find debian/siconos-examples/usr/share/siconos/examples/Mechanics/Mechanisms -name env.csh -exec rm -v {} \;
 
 # Due to: "dh_sphinxdoc: error: unknown JavaScript code: debian/siconos-doc/usr/share/doc/siconos-doc/html/_static/doctools.js"
 override_dh_sphinxdoc:

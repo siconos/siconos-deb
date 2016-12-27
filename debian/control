@@ -12,14 +12,16 @@ Package: siconos
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-all-dev, python-siconos, siconos-mechanics-tools
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
 
 Package: libsiconos-common-dev
 Architecture: any
 Section: libdevel
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains development support for Siconos components.
 
@@ -28,7 +30,8 @@ Architecture: any
 Section: libdevel
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-numerics-dev, libsiconos-kernel-dev, libsiconos-externals-dev, libsiconos-mechanics-dev, libsiconos-control-dev, libsiconos-io-dev
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package can be used to install development support for all Siconos components.
 
@@ -36,7 +39,8 @@ Package: libsiconos-numerics
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-externals, lp-solve
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains the Siconos shared library for the 'numerics' component.
 
@@ -45,7 +49,8 @@ Architecture: any
 Section: libdevel
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-numerics, libsiconos-externals-dev, cmake (>= 3.0.2)
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains development headers for the 'numerics' component.
 
@@ -53,7 +58,8 @@ Package: libsiconos-kernel
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-numerics
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains the Siconos shared library for the 'kernel' component.
 
@@ -62,7 +68,8 @@ Architecture: any
 Section: libdevel
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-kernel, libsiconos-numerics-dev, cmake (>= 3.0.2), libboost-dev (>= 1.47), lp-solve, libgmp-dev
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains development headers for the 'kernel' component.
 
@@ -70,7 +77,8 @@ Package: libsiconos-externals
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains the Siconos shared library for the 'externals' component.
 
@@ -79,7 +87,8 @@ Architecture: any
 Section: libdevel
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-externals, libsiconos-common-dev, cmake (>= 3.0.2), libboost-dev (>= 1.47), lp-solve, libgmp-dev
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains development headers for the 'externals' component.
 
@@ -87,7 +96,8 @@ Package: libsiconos-mechanics
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-kernel, libbulletcollision2.83.6
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains the Siconos shared library for the 'mechanics' component.
 
@@ -96,7 +106,8 @@ Architecture: any
 Section: libdevel
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-mechanics, libsiconos-kernel-dev, cmake (>= 3.0.2), libboost-dev (>= 1.47), lp-solve, libgmp-dev
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains development headers for the 'mechanics' component.
 
@@ -104,7 +115,8 @@ Package: libsiconos-control
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-kernel
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains the Siconos shared library for the 'control' component.
 
@@ -113,7 +125,8 @@ Architecture: any
 Section: libdevel
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-control, libsiconos-kernel-dev, cmake (>= 3.0.2), libboost-dev (>= 1.47), lp-solve, libgmp-dev
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains development headers for the 'control' component.
 
@@ -121,7 +134,8 @@ Package: libsiconos-io
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-kernel
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains the Siconos shared library for the 'io' component.
 
@@ -130,7 +144,8 @@ Architecture: any
 Section: libdevel
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-io, libsiconos-common-dev, cmake (>= 3.0.2), libboost-dev (>= 1.47), lp-solve, libgmp-dev
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains development headers for the 'io' component.
 
@@ -138,7 +153,8 @@ Package: python-siconos
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}, libsiconos-numerics, libsiconos-kernel, libsiconos-mechanics, libsiconos-control, libsiconos-io, python-scipy, python-h5py
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains Python wrappers for the C++ library.
 
@@ -146,7 +162,8 @@ Package: siconos-examples
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}, python-siconos, python-matplotlib
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains examples in C++ and Python.
 
@@ -154,7 +171,8 @@ Package: siconos-doc
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libjs-jquery, libjs-underscore, libjs-mathjax
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains documentation and tutorials in HTML format.
 
@@ -162,6 +180,7 @@ Package: siconos-mechanics-tools
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-mechanics, python-siconos, python-vtk6
 Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems
  .
  This package contains tools for running and viewing 3D mechanics simulations.

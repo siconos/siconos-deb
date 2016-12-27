@@ -80,7 +80,7 @@ Description: modeling and simulation of nonsmooth dynamical systems
 
 Package: libsiconos-mechanics
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-kernel, libbulletcollision2.83.7
+Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-kernel, libbulletcollision2.83.6
 Description: modeling and simulation of nonsmooth dynamical systems
  Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
  .

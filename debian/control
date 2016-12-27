@@ -10,7 +10,7 @@ X-Python-Version: >= 2.6
 
 Package: siconos
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-all-dev, python-siconos, siconos-mechanics
+Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-all-dev, python-siconos, siconos-mechanics-tools
 Description: modeling and simulation of nonsmooth dynamical systems
  Siconos is an open-source scientific software primarily targeted at modeling and simulating nonsmooth dynamical systems
 

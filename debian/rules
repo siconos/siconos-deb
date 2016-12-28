@@ -75,6 +75,9 @@ override_dh_fixperms:
 	find debian/siconos-examples -name \*.step -exec chmod 644 {} \;
 	find debian/siconos-examples -name \*.cpp -exec chmod 644 {} \;
 	find debian/siconos-examples -name \*.h -exec chmod 644 {} \;
+# Some weird old mistakes that trigger lintian errors
+	sed -i -e 's,#/bin/sh,#!/bin/sh,' debian/siconos-examples/usr/share/siconos/examples/Biology/StepSystem/script.sh
+	sed -i -e 's,#/bin/sh,#!/bin/sh,' debian/siconos-examples/usr/share/siconos/examples/Biology/StepSystem/script-sign.sh
 # Remove unwanted files
 	find debian/siconos-examples -name Thumbs.db -exec rm -v {} \;
 	rm debian/siconos-examples/usr/share/siconos/examples/Robotics/HuMAns_pa10/RobotSim/lib/pa10.tar.gz

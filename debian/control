@@ -14,6 +14,9 @@ Depends: ${misc:Depends}, libsiconos-all-dev, python-siconos, siconos-mechanics-
 Description: modeling and simulation of nonsmooth dynamical systems
  Siconos is an open-source scientific software primarily targeted at
  modeling and simulating nonsmooth dynamical systems
+ .
+ This metapackage can be used to install all Siconos libraries, tools,
+ Python modules, and development packages.
 
 Package: libsiconos-common-dev
 Architecture: any
@@ -33,7 +36,8 @@ Description: modeling and simulation of nonsmooth dynamical systems
  Siconos is an open-source scientific software primarily targeted at
  modeling and simulating nonsmooth dynamical systems
  .
- This package can be used to install development support for all Siconos components.
+ This metapackage can be used to install development support for all
+ Siconos components.
 
 Package: libsiconos-numerics4.0.0
 Architecture: any

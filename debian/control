@@ -203,7 +203,7 @@ Description: modeling and simulation of nonsmooth dynamical systems
 
 Package: siconos-mechanics-tools
 Architecture: any
-Depends: ${misc:Depends}, ${python:Depends}, libsiconos-mechanics, python-siconos, python-vtk6
+Depends: ${misc:Depends}, ${python:Depends}, python-siconos, python-vtk6
 Description: modeling and simulation of nonsmooth dynamical systems
  Siconos is an open-source scientific software primarily targeted at
  modeling and simulating nonsmooth dynamical systems

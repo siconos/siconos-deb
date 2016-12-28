@@ -188,7 +188,8 @@ Description: modeling and simulation of nonsmooth dynamical systems
  This package contains Python wrappers for the C++ library.
 
 Package: siconos-examples
-Architecture: any
+Architecture: all
+Section: doc
 Depends: ${misc:Depends}, ${python:Depends}, python-siconos, python-matplotlib
 Description: modeling and simulation of nonsmooth dynamical systems
  Siconos is an open-source scientific software primarily targeted at
@@ -197,7 +198,7 @@ Description: modeling and simulation of nonsmooth dynamical systems
  This package contains examples in C++ and Python.
 
 Package: siconos-doc
-Architecture: any
+Architecture: all
 Section: doc
 Depends: ${misc:Depends}, libjs-jquery, libjs-underscore, libjs-mathjax
 Description: modeling and simulation of nonsmooth dynamical systems

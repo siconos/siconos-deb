@@ -92,6 +92,7 @@ override_dh_sphinxdoc:
 # Fix some lintian errors that suggest depending on packages rather than included js
 	rm -vf $(DOCDIR)/html/_sources/license.txt
 	rm -vf $(DOCDIR)/html/_static/jquery.js
+	rm -vf $(DOCDIR)/html/doxygen/html/jquery.js
 	rm -vrf $(DOCDIR)/html/_static/js/jquery*
 	rm -vf $(DOCDIR)/html/_static/underscore.js
 	find $(DOCDIR)/html -name \*.html -exec sed -i {} -e s,https://cdn.mathjax.org/mathjax/latest/MathJax.js,/usr/share/javascript/mathjax/MathJax.js,g \;
@@ -99,5 +100,6 @@ override_dh_sphinxdoc:
 	find $(DOCDIR)/html -name \*.html -exec sed -i {} -e s,../_static/underscore.js,/usr/share/javascript/underscore/underscore.js,g \;
 	find $(DOCDIR)/html -name \*.html -exec sed -i {} -e s,'<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>',,g \;
 	find $(DOCDIR)/html -name \*.html -exec sed -i {} -e s,'<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>',,g \;
+	find $(DOCDIR)/html/doxygen -name \*.html -exec sed -i {} -e s,'..//usr/share/javascript/jquery/jquery.js','/usr/share/javascript/jquery/jquery.js',g \;
 
 Testsuite: autopkgtest-pkg-python

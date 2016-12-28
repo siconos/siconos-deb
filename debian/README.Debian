@@ -1,6 +1,15 @@
 siconos for Debian
 -----------------
 
-<possible notes regarding this package - if none, delete this file>
+This source package generates a separate library binary package for
+each Siconos component.  The python-siconos package is not currently
+separated by component.
+
+Normally Siconos uses rpath for a few libraries: libhdf5 and lp-solve.
+The former resolves itself properly when rpath is disabled, however
+the lp-solve library is considered "internal" in the lp-solve package,
+therefore to avoid using rpath we link against the static library
+available in lpsolve55-dev, and it is therefore not a run-time
+dependency.
 
  -- Stephen Sinclair <radarsat1@gmail.com>  Wed, 21 Dec 2016 10:05:42 -0300

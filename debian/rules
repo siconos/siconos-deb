@@ -74,7 +74,8 @@ override_dh_auto_install:
 	sed -i -e 's,#/bin/sh,#!/bin/sh,' debian/siconos-examples/usr/share/doc/siconos-examples/examples/Biology/StepSystem/script.sh
 	sed -i -e 's,#/bin/sh,#!/bin/sh,' debian/siconos-examples/usr/share/doc/siconos-examples/examples/Biology/StepSystem/script-sign.sh
 # Remove unwanted files
-	find debian/tmp -name Thumbs.db -exec rm -v {} \;
+	find debian/siconos-examples -name Thumbs.db -exec rm -v {} \;
+	find debian/siconos-examples -name Thumbs.db.gz -exec rm -v {} \;
 	rm debian/siconos-examples/usr/share/doc/siconos-examples/examples/Robotics/HuMAns_pa10/RobotSim/lib/pa10.tar.gz
 	find debian/siconos-examples/usr/share/doc/siconos-examples/examples/Mechanics/Mechanisms -name env.sh -exec rm -v {} \;
 	find debian/siconos-examples/usr/share/doc/siconos-examples/examples/Mechanics/Mechanisms -name env.csh -exec rm -v {} \;

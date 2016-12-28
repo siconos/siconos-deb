@@ -2,7 +2,7 @@ siconos (4.0.0-1ubuntu8) xenial; urgency=medium
 
   * Set standards version to 3.9.7 for Xenial.
   * Fix libbulletcollision version (package name) dependency for Xenial.
-  * Rename siconos-mechanics and siconos-mechanics-io to siconos-mechanics-tools.
+  * Rename siconos-mechanics, siconos-mechanics-io to siconos-mechanics-tools.
   * Fix -dev dependencies and remove python:Depends where not needed.
   * Fix lintian error non-dev-pkg-with-shlib-symlink
   * Fix dependency siconos -> siconos-mechanics-tools

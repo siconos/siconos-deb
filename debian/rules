@@ -66,7 +66,19 @@ override_dh_auto_install:
 # FIXME: remove $(CURDIR)/debian when sphinxcontrib packages become available.
 	env PYTHONPATH=$(CURDIR)/debian/tmp/$(wildcard /usr/lib/python2*/dist-packages):$(CURDIR)/debian/python2.7/site-packages LD_LIBRARY_PATH=$(LIBDIR) $(MAKE) -C $(BUILDDIR) doc
 	dh_installdocs -p siconos-doc $(BUILDDIR)/Docs/build/html
+
+	dh_installexamples -p siconos-examples examples/*
 	dh_numpy
+
+# Some weird old mistakes that trigger lintian errors
+	sed -i -e 's,#/bin/sh,#!/bin/sh,' debian/siconos-examples/usr/share/doc/siconos-examples/examples/Biology/StepSystem/script.sh
+	sed -i -e 's,#/bin/sh,#!/bin/sh,' debian/siconos-examples/usr/share/doc/siconos-examples/examples/Biology/StepSystem/script-sign.sh
+# Remove unwanted files
+	find debian/tmp -name Thumbs.db -exec rm -v {} \;
+	rm debian/siconos-examples/usr/share/doc/siconos-examples/examples/Robotics/HuMAns_pa10/RobotSim/lib/pa10.tar.gz
+	find debian/siconos-examples/usr/share/doc/siconos-examples/examples/Mechanics/Mechanisms -name env.sh -exec rm -v {} \;
+	find debian/siconos-examples/usr/share/doc/siconos-examples/examples/Mechanics/Mechanisms -name env.csh -exec rm -v {} \;
+	rm -rf debian/siconos-examples/usr/share/doc/siconos-examples/examples/{src,figures,cmake,CMakeLists.txt,ChangeLog,CI,CTestConfig.cmake,config}
 
 override_dh_fixperms:
 	dh_fixperms
@@ -75,15 +87,6 @@ override_dh_fixperms:
 	find debian/siconos-examples -name \*.step -exec chmod 644 {} \;
 	find debian/siconos-examples -name \*.cpp -exec chmod 644 {} \;
 	find debian/siconos-examples -name \*.h -exec chmod 644 {} \;
-# Some weird old mistakes that trigger lintian errors
-	sed -i -e 's,#/bin/sh,#!/bin/sh,' debian/siconos-examples/usr/share/siconos/examples/Biology/StepSystem/script.sh
-	sed -i -e 's,#/bin/sh,#!/bin/sh,' debian/siconos-examples/usr/share/siconos/examples/Biology/StepSystem/script-sign.sh
-# Remove unwanted files
-	find debian/siconos-examples -name Thumbs.db -exec rm -v {} \;
-	rm debian/siconos-examples/usr/share/siconos/examples/Robotics/HuMAns_pa10/RobotSim/lib/pa10.tar.gz
-	find debian/siconos-examples/usr/share/siconos/examples/Mechanics/Mechanisms -name env.sh -exec rm -v {} \;
-	find debian/siconos-examples/usr/share/siconos/examples/Mechanics/Mechanisms -name env.csh -exec rm -v {} \;
-	rm -rf debian/siconos-examples/usr/share/siconos/examples/{src,figures,cmake,CMakeLists.txt,ChangeLog,CI,CTestConfig.cmake,config}
 
 # Due to: "dh_sphinxdoc: error: unknown JavaScript code: debian/siconos-doc/usr/share/doc/siconos-doc/html/_static/doctools.js"
 override_dh_sphinxdoc:

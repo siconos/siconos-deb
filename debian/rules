@@ -55,7 +55,7 @@ override_dh_auto_install:
 	    -or -name \*.hpp -printf 'debian/tmp/usr/include/siconos/%f\0' \
 		| xargs -0 ls 2>/dev/null \
 	  | while read i; do \
-	    dh_install -p libsiconos-$$C-dev $$i usr/include/siconos/; \
+	    dh_install -p libsiconos-$${C}4.0.0-dev $$i usr/include/siconos/; \
 	  done; \
 	done
 

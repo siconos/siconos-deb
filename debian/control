@@ -194,6 +194,7 @@ Description: modeling and simulation of nonsmooth dynamical systems
 
 Package: siconos-doc
 Architecture: any
+Section: doc
 Depends: ${misc:Depends}, libjs-jquery, libjs-underscore, libjs-mathjax
 Description: modeling and simulation of nonsmooth dynamical systems
  Siconos is an open-source scientific software primarily targeted at

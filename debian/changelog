@@ -64,6 +64,6 @@ siconos (4.0.0-1ubuntu1) xenial; urgency=medium
 
 siconos (4.0.0-1) xenial; urgency=medium
 
-  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+  * Initial release
 
  -- Stephen Sinclair <radarsat1@gmail.com>  Wed, 21 Dec 2016 10:05:42 -0300

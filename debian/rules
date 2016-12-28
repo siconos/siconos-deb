@@ -29,11 +29,19 @@ override_dh_auto_clean:
 	      Docs/sphinx/index.rst \
 	      Docs/sphinx/reference/siconos_api_reference.rst
 
+# Notes: We remove rpath due to Debian policy, and since
+# liblpsolve55.so is a private library in the lp-solve package, we
+# instead use the static library available in liblpsolve55-dev.
 override_dh_auto_configure:
 	dh_auto_configure -- \
 		-DFORCE_SKIP_RPATH=1 \
+		-DCMAKE_SKIP_INSTALL_RPATH=TRUE \
+		-DCMAKE_SKIP_BUILD_RPATH=TRUE \
+		-DCMAKE_SKIP_RPATH=TRUE \
+		-DI_WANT_STATIC_LPSOLVE=TRUE \
+		-DLpSolve_LIBRARY=/usr/lib/liblpsolve55_pic.a \
 		-DNO_RUNTIME_BUILD_DEP=1 \
-	  -Dpython_install_options=--install-layout=deb \
+		-Dpython_install_options=--install-layout=deb \
 		-DGAMS_DIR_INSOURCE=1 \
 		-DWITH_UMFPACK=1 \
 		-DWITH_BULLET=1 \

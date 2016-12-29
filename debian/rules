@@ -18,6 +18,7 @@ LIBDIR=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
 DOCDIR=$(CURDIR)/debian/siconos-doc/usr/share/doc/siconos-doc
 
 COMPONENTS := numerics kernel externals mechanics io control
+SOVERSION := 0
 
 %:
 	dh $@ --with python2,sphinxdoc --parallel
@@ -32,7 +33,18 @@ override_dh_auto_clean:
 # Notes: We remove rpath due to Debian policy, and since
 # liblpsolve55.so is a private library in the lp-solve package, we
 # instead use the static library available in liblpsolve55-dev.
+#
+# We add SOVERSION=0 since it is not specified in the CMake.  Future
+# upstream versions will bump SICONOS_SOVERSION accordingly, so this
+# should not be necessary.
 override_dh_auto_configure:
+	echo 'set(SICONOS_SOVERSION "$(SOVERSION)")' >>cmake/SiconosVersion.cmake
+	sed -i -e \
+    's,\(VERSION "$${SICONOS_VERSION}"\),\1 SOVERSION "$${SICONOS_SOVERSION}",' \
+	  cmake/LibraryProjectSetup.cmake
+	sed -i -e \
+		's,set_target_properties(\(.*\)NO_SONAME ON),set_target_properties(\1SOVERSION "$${SICONOS_SOVERSION}"),' \
+		cmake/UseSWIG.cmake
 	dh_auto_configure -- \
 		-DFORCE_SKIP_RPATH=1 \
 		-DCMAKE_SKIP_INSTALL_RPATH=TRUE \
@@ -63,7 +75,7 @@ override_dh_auto_install:
 	    -or -name \*.hpp -printf 'debian/tmp/usr/include/siconos/%f\0' \
 		| xargs -0 ls 2>/dev/null \
 	  | while read i; do \
-	    dh_install -p libsiconos-$${C}4.0.0-dev $$i usr/include/siconos/; \
+	    dh_install -p libsiconos-$$C$(SOVERSION)-dev $$i usr/include/siconos/; \
 	  done; \
 	done
 

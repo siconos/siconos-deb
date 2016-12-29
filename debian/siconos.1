@@ -1,0 +1,168 @@
+.TH SICONOS "1" "December 2016" "siconos: Usage" "User Commands"
+.SH NAME
+siconos \- compile and execute a Siconos simulation in C++ or Python
+.SH SYNOPSIS
+.B siconos
+[\fI\,options\/\fR] [\fI\,YourExample.{cpp,py}|location/YourExample.{cpp,py}\/\fR] [\fI\,Arguments\/\fR]
+.SH DESCRIPTION
+The siconos command compiles, links and runs a Siconos program.
+.HP
+\fB\-\-\fR> If your main file needs other source files (*.c, *.cpp, *.f), put them in
+.IP
+\&./src or use option src_dir (see below)
+.HP
+\fB\-\-\fR> To create a library (to get a plugin for instance), create
+.IP
+a ./plugins (\fB\-\-\fR> will build plugins.so) directory or some
+directories xxxPluginxxx (\fB\-\-\-\fR> will build xxxPluginxxx.so) or
+use \fB\-plugin_dir\fR option below. In all case, all files in 'plugin dir'
+will be used to compute 'pluginname.so'.
+.PP
+Options are:
+.HP
+\fB\-a\fR : to find and compile all sources files in YourExample.cpp
+.IP
+directory.
+.TP
+\fB\-\-build\-dir\fR <dir> : build is done in <dir>. Under \fI\,/tmp\/\fP, a temp
+directory is created
+.HP
+\fB\-\-clean\-build\fR : clean build directory.
+.HP
+\fB\-c\fR | \fB\-\-clean\fR : to clean the current directory (deletes binary files,
+.IP
+etc.).
+.HP
+\fB\-D\fR key | \fB\-D\fR key=value : to define a 'cmake' and a 'cpp' variable.
+.HP
+\fB\-g\fR : to compile with debug informations.
+.HP
+\fB\-h\fR | \fB\-\-help\fR : to print this help.
+.TP
+\fB\-j\fR<n>
+: parrallel compilation with n jobs
+.HP
+\fB\-I\fR<dir> : add directory <dir> to the list of paths to include headers.
+.HP
+\fB\-L\fR<dir> : add directory <dir> to the list from with the linker search
+.IP
+for libraries.
+.HP
+\fB\-l\fR<lib> : link with library <lib>.
+.HP
+\fB\-\-noexec\fR : compile only.
+.HP
+\fB\-\-nocomp\fR : execute only.
+.HP
+\fB\-O\fR<n> : set compiler optimization.
+.HP
+\fB\-\-opt\fR <opt> : add option <opt> to compiler.
+.HP
+\fB\-\-ldopt\fR <opt> : add option <opt> to linker.
+.TP
+\fB\-P\fR prefix_command : to add a prefix command (time, valgrind, gdb,
+etc.).
+.HP
+\fB\-\-plugin\-dir\fR <plugin_directory> (default = plugins): create a library
+.IP
+named plugin_directory.so built with all files in plugin_directory.
+.HP
+\fB\-\-src\-dir\fR <source_directory> (default = src): all sources files under
+.TP
+<source_directory> (Warning: absolute path!!)
+to the executable.
+.HP
+\fB\-v\fR : to print 'make' commands as they are executed.
+.HP
+\fB\-\-generator\fR <Generator Name>: set the generator for cmake (the default is
+.IP
+plateform dependent, but usually "Unix Makefiles" under *nix and MacOs).
+This is mainly useful for Windows users.
+.PP
+The siconos command compiles, links and runs a Siconos program.
+.PP
+Usage: \fI\,/usr/bin/siconos\/\fP [options] [YourExample.{cpp,py}|location/YourExample.{cpp,py}] [Arguments]
+.HP
+\fB\-\-\fR> If your main file needs other source files (*.c, *.cpp, *.f), put them in
+.IP
+\&./src or use option src_dir (see below)
+.HP
+\fB\-\-\fR> To create a library (to get a plugin for instance), create
+.IP
+a ./plugins (\fB\-\-\fR> will build plugins.so) directory or some
+directories xxxPluginxxx (\fB\-\-\-\fR> will build xxxPluginxxx.so) or
+use \fB\-plugin_dir\fR option below. In all case, all files in 'plugin dir'
+will be used to compute 'pluginname.so'.
+.PP
+Options are:
+.HP
+\fB\-a\fR : to find and compile all sources files in YourExample.cpp
+.IP
+directory.
+.TP
+\fB\-\-build\-dir\fR <dir> : build is done in <dir>. Under \fI\,/tmp\/\fP, a temp
+directory is created
+.HP
+\fB\-\-clean\-build\fR : clean build directory.
+.HP
+\fB\-c\fR | \fB\-\-clean\fR : to clean the current directory (deletes binary files,
+.IP
+etc.).
+.HP
+\fB\-D\fR key | \fB\-D\fR key=value : to define a 'cmake' and a 'cpp' variable.
+.HP
+\fB\-g\fR : to compile with debug informations.
+.HP
+\fB\-h\fR | \fB\-\-help\fR : to print this help.
+.TP
+\fB\-j\fR<n>
+: parrallel compilation with n jobs
+.HP
+\fB\-I\fR<dir> : add directory <dir> to the list of paths to include headers.
+.HP
+\fB\-L\fR<dir> : add directory <dir> to the list from with the linker search
+.IP
+for libraries.
+.HP
+\fB\-l\fR<lib> : link with library <lib>.
+.HP
+\fB\-\-noexec\fR : compile only.
+.HP
+\fB\-\-nocomp\fR : execute only.
+.HP
+\fB\-O\fR<n> : set compiler optimization.
+.HP
+\fB\-\-opt\fR <opt> : add option <opt> to compiler.
+.HP
+\fB\-\-ldopt\fR <opt> : add option <opt> to linker.
+.TP
+\fB\-P\fR prefix_command : to add a prefix command (time, valgrind, gdb,
+etc.).
+.HP
+\fB\-\-plugin\-dir\fR <plugin_directory> (default = plugins): create a library
+.IP
+named plugin_directory.so built with all files in plugin_directory.
+.HP
+\fB\-\-src\-dir\fR <source_directory> (default = src): all sources files under
+.TP
+<source_directory> (Warning: absolute path!!)
+to the executable.
+.HP
+\fB\-v\fR : to print 'make' commands as they are executed.
+.HP
+\fB\-\-generator\fR <Generator Name>: set the generator for cmake (the default is
+.IP
+plateform dependent, but usually "Unix Makefiles" under *nix and MacOs).
+This is mainly useful for Windows users.
+.SH "SEE ALSO"
+The full documentation for
+.B siconos
+is maintained as a Texinfo manual.  If the
+.B info
+and
+.B siconos
+programs are properly installed at your site, the command
+.IP
+.B info siconos
+.PP
+should give you access to the complete manual.

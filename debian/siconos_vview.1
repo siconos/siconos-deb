@@ -1,0 +1,87 @@
+.TH SICONOS_VVIEW: "1" "December 2016" "siconos_vview: Usage" "User Commands"
+.SH NAME
+siconos_vview \- VTK viewer for Siconos "mechanics-IO" HDF5 files
+.SH DESCRIPTION
+/usr/bin/siconos_vview: Usage
+.IP
+{0} [\-\-help] [tmin=<float value>] [tmax=<float value>]
+.IP
+[\-\-cf\-scale=<float value>] [\-\-vtk\-export] <hdf5 file>
+.IP
+Options :
+.HP
+\fB\-\-help\fR
+.IP
+display this message
+.HP
+\fB\-\-tmin=\fR value
+.IP
+set the time lower bound for visualization
+.HP
+\fB\-\-tmax=\fR value
+.IP
+set the time upper bound for visualization
+.TP
+\fB\-\-cf\-scale=\fR value
+(default : 1.0 )
+.IP
+rescale the arrow representing the contact forces by the value.
+the normal cone and the contact points are also rescaled
+.TP
+\fB\-\-normalcone\-ratio\fR = value
+(default : 1.0 )
+.IP
+introduce a ratio between the representation of the contact forces arrows
+the normal cone and the contact points. useful when the contact forces are
+small with respect to the characteristic dimesion
+.HP
+\fB\-\-vtk\-export\fR
+.IP
+export visualization in vtk files (to use in paraview for instance)
+.IP
+{0} [\-\-help] [tmin=<float value>] [tmax=<float value>]
+.IP
+[\-\-cf\-scale=<float value>] [\-\-vtk\-export] <hdf5 file>
+.IP
+Options :
+.HP
+\fB\-\-help\fR
+.IP
+display this message
+.HP
+\fB\-\-tmin=\fR value
+.IP
+set the time lower bound for visualization
+.HP
+\fB\-\-tmax=\fR value
+.IP
+set the time upper bound for visualization
+.TP
+\fB\-\-cf\-scale=\fR value
+(default : 1.0 )
+.IP
+rescale the arrow representing the contact forces by the value.
+the normal cone and the contact points are also rescaled
+.TP
+\fB\-\-normalcone\-ratio\fR = value
+(default : 1.0 )
+.IP
+introduce a ratio between the representation of the contact forces arrows
+the normal cone and the contact points. useful when the contact forces are
+small with respect to the characteristic dimesion
+.HP
+\fB\-\-vtk\-export\fR
+.IP
+export visualization in vtk files (to use in paraview for instance)
+.SH "SEE ALSO"
+The full documentation for
+.B siconos_vview:
+is maintained as a Texinfo manual.  If the
+.B info
+and
+.B siconos_vview:
+programs are properly installed at your site, the command
+.IP
+.B info siconos_vview:
+.PP
+should give you access to the complete manual.

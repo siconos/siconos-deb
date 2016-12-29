@@ -9,8 +9,6 @@
 export CC=clang
 export CXX=clang++
 
-export DEB_BUILD_OPTIONS="parallel=4"
-
 LDFLAGS=-Wl,--as-needed
 
 BUILDDIR=$(CURDIR)/obj-$(DEB_HOST_GNU_TYPE)

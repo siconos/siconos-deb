@@ -1,3 +1,30 @@
+siconos (4.0.0-1ubuntu9) xenial; urgency=medium
+
+  * Make siconos-mechanics-tools a Python package, dependent only on python-siconos.
+  * Fix error in removing Thumbs.db files.
+  * Update README.Debian.
+  * Fix siconos-doc section.
+  * Fix some bad old script hashbangs.
+    This should be fixed upstream.
+  * Fix jquery.js references in doxygen html.
+  * Add gbp.conf
+  * Ignore quilt dir
+  * Patch remove renderer sources.
+  * Fix empty-binary-package
+  * Use dh_installexamples and put examples fixes under install instead of fixperms.
+  * Remove Thumbs.db.gz files.
+  * Fix architecture and section of docs and examples
+  * Fix configuration of LDFLAGS
+  * Remove use of rpath (binary-or-shlib-defines-rpath)
+  * Set the soname properly, and set it to 0.
+  * Remove bad parallel option.
+  * Use brackets on component variable during include install loop.
+  * Remove pprocess, it's broken in this release and requires OCC.
+  * Add man pages for 'siconos' and 'vview' using help2man.
+  * Remove erroneous bit in the man pages about info and add website instead.
+
+ -- Stephen Sinclair <radarsat1@gmail.com>  Thu, 29 Dec 2016 18:39:54 -0300
+
 siconos (4.0.0-1ubuntu8) xenial; urgency=medium
 
   * Set standards version to 3.9.7 for Xenial.

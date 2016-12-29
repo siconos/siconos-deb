@@ -69,11 +69,11 @@ override_dh_auto_install:
 # we use find and ls to identify only installed header files that are
 # found within a component's directory
 	for C in $(COMPONENTS); do \
-	  find $(CURDIR)/$$C -name \*.h -printf 'debian/tmp/usr/include/siconos/%f\0' \
+	  find $(CURDIR)/$${C} -name \*.h -printf 'debian/tmp/usr/include/siconos/%f\0' \
 	    -or -name \*.hpp -printf 'debian/tmp/usr/include/siconos/%f\0' \
 		| xargs -0 ls 2>/dev/null \
 	  | while read i; do \
-	    dh_install -p libsiconos-$$C$(SOVERSION)-dev $$i usr/include/siconos/; \
+	    dh_install -p libsiconos-$${C}$(SOVERSION)-dev $$i usr/include/siconos/; \
 	  done; \
 	done
 

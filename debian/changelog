@@ -1,6 +1,6 @@
 siconos (4.0.0-1ubuntu9) xenial; urgency=medium
 
-  * Make siconos-mechanics-tools a Python package, dependent only on python-siconos.
+  * Make siconos-mechanics-tools a Python package, depend on python-siconos.
   * Fix error in removing Thumbs.db files.
   * Update README.Debian.
   * Fix siconos-doc section.
@@ -11,7 +11,7 @@ siconos (4.0.0-1ubuntu9) xenial; urgency=medium
   * Ignore quilt dir
   * Patch remove renderer sources.
   * Fix empty-binary-package
-  * Use dh_installexamples and put examples fixes under install instead of fixperms.
+  * Use dh_installexamples and put examples fixes under install not fixperms.
   * Remove Thumbs.db.gz files.
   * Fix architecture and section of docs and examples
   * Fix configuration of LDFLAGS

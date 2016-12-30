@@ -1,3 +1,10 @@
+siconos (4.0.0-1ubuntu10) xenial; urgency=medium
+
+  * Workaround for 'import kernel' error while building docs.
+  * Fix debian-changelog-line-too-long
+
+ -- Stephen Sinclair <radarsat1@gmail.com>  Fri, 30 Dec 2016 11:51:35 -0300
+
 siconos (4.0.0-1ubuntu9) xenial; urgency=medium
 
   * Make siconos-mechanics-tools a Python package, depend on python-siconos.

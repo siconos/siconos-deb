@@ -64,6 +64,7 @@ override_dh_auto_configure:
 
 override_dh_auto_install:
 	dh_auto_install
+	dh_numpy
 
 # split up header files according to component;
 # we use find and ls to identify only installed header files that are
@@ -77,6 +78,7 @@ override_dh_auto_install:
 	  done; \
 	done
 
+override_dh_installdocs-indep:
 # launch 'make doc' with correct paths to generate docs; this should
 # go in 'build', but it must be done after install due to sphinx
 # needing to load SWIG-compiled modules during doc build.
@@ -84,10 +86,9 @@ override_dh_auto_install:
 # FIXME: remove $(CURDIR)/debian when sphinxcontrib packages become available.
 # FIXME: remove /usr/lib/python2.7 and the ../dist-packages/siconos path in future versions where the 'import kernel' bug is fixed.
 	env PYTHONPATH=/usr/lib/python2.7:$(CURDIR)/debian/tmp/$(wildcard /usr/lib/python2*/dist-packages)/siconos:$(CURDIR)/debian/tmp/$(wildcard /usr/lib/python2*/dist-packages):$(CURDIR)/debian/python2.7/site-packages LD_LIBRARY_PATH=$(LIBDIR) $(MAKE) -C $(BUILDDIR) doc
-	dh_installdocs -p siconos-doc $(BUILDDIR)/Docs/build/html
 
+	dh_installdocs -p siconos-doc $(BUILDDIR)/Docs/build/html
 	dh_installexamples -p siconos-examples examples/*
-	dh_numpy
 
 # Some weird old mistakes that trigger lintian errors
 	sed -i -e 's,#/bin/sh,#!/bin/sh,' debian/siconos-examples/usr/share/doc/siconos-examples/examples/Biology/StepSystem/script.sh
@@ -100,7 +101,7 @@ override_dh_auto_install:
 	find debian/siconos-examples/usr/share/doc/siconos-examples/examples/Mechanics/Mechanisms -name env.csh -exec rm -v {} \;
 	rm -rf debian/siconos-examples/usr/share/doc/siconos-examples/examples/{src,figures,cmake,CMakeLists.txt,ChangeLog,CI,CTestConfig.cmake,config}
 
-override_dh_fixperms:
+override_dh_fixperms-indep:
 	dh_fixperms
 # Remove exec permissions of stp/step/cpp/h files (lintian error)
 	find debian/siconos-examples -name \*.stp -exec chmod 644 {} \;
@@ -108,11 +109,14 @@ override_dh_fixperms:
 	find debian/siconos-examples -name \*.cpp -exec chmod 644 {} \;
 	find debian/siconos-examples -name \*.h -exec chmod 644 {} \;
 
-# Due to: "dh_sphinxdoc: error: unknown JavaScript code: debian/siconos-doc/usr/share/doc/siconos-doc/html/_static/doctools.js"
-override_dh_sphinxdoc:
-	dh_sphinxdoc -X bootstrap-sphinx.js -X doctools.js -X jquery-1.11.1.js -X jquery.js -X searchtools.js -X underscore-1.3.1.js -X underscore.js -X websupport.js
+override_dh_sphinxdoc-indep:
+# If we delete these files, then dh_sphinxdoc complains that they are missing.
+# If we don't delete them, then lintian complains with privacy-breach-uses-embedded-file
+# In the end, uable to call dh_sphinxdoc without errors.
+# (Even after "ignoring" all js files, it complains about modified search.html, etc.)
+# Decision: don't use dh_sphinxdoc for now, just fix up the js urls using sed
+#	dh_sphinxdoc -p siconos-doc -X bootstrap-sphinx.js -X bootstrap.min.js -X doctools.js -X jquery-1.11.0.js -X jquery-1.11.1.js -X jquery-1.11.0.min.js -X jquery-1.11.1.min.js -X jquery.js -X jquery-fix.js -X searchtools.js -X underscore-1.3.1.js -X underscore.js -X websupport.js -X MathJax.js usr/share/doc/siconos-doc/html
 
-# Fix some lintian errors that suggest depending on packages rather than included js
 	rm -vf $(DOCDIR)/html/_sources/license.txt
 	rm -vf $(DOCDIR)/html/_static/jquery.js
 	rm -vf $(DOCDIR)/html/doxygen/html/jquery.js

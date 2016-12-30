@@ -82,7 +82,8 @@ override_dh_auto_install:
 # needing to load SWIG-compiled modules during doc build.
 
 # FIXME: remove $(CURDIR)/debian when sphinxcontrib packages become available.
-	env PYTHONPATH=$(CURDIR)/debian/tmp/$(wildcard /usr/lib/python2*/dist-packages):$(CURDIR)/debian/python2.7/site-packages LD_LIBRARY_PATH=$(LIBDIR) $(MAKE) -C $(BUILDDIR) doc
+# FIXME: remove /usr/lib/python2.7 and the ../dist-packages/siconos path in future versions where the 'import kernel' bug is fixed.
+	env PYTHONPATH=/usr/lib/python2.7:$(CURDIR)/debian/tmp/$(wildcard /usr/lib/python2*/dist-packages)/siconos:$(CURDIR)/debian/tmp/$(wildcard /usr/lib/python2*/dist-packages):$(CURDIR)/debian/python2.7/site-packages LD_LIBRARY_PATH=$(LIBDIR) $(MAKE) -C $(BUILDDIR) doc
 	dh_installdocs -p siconos-doc $(BUILDDIR)/Docs/build/html
 
 	dh_installexamples -p siconos-examples examples/*

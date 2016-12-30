@@ -1,3 +1,10 @@
+siconos (4.0.0-1ubuntu11) xenial; urgency=medium
+
+  * Build and install docs and examples only in arch-independent target.
+  * Fix missing copyright for siconos-examples.
+
+ -- Stephen Sinclair <radarsat1@gmail.com>  Fri, 30 Dec 2016 15:28:48 -0300
+
 siconos (4.0.0-1ubuntu10) xenial; urgency=medium
 
   * Workaround for 'import kernel' error while building docs.

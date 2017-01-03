@@ -1,3 +1,9 @@
+siconos (4.0.0-1ubuntu12) xenial; urgency=medium
+
+  * Link libsiconos-externals statically with numerics and remove its package.
+
+ -- Stephen Sinclair <radarsat1@gmail.com>  Tue, 03 Jan 2017 11:02:24 -0300
+
 siconos (4.0.0-1ubuntu11) xenial; urgency=medium
 
   * Build and install docs and examples only in arch-independent target.

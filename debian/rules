@@ -15,7 +15,7 @@ BUILDDIR=$(CURDIR)/obj-$(DEB_HOST_GNU_TYPE)
 LIBDIR=$(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
 DOCDIR=$(CURDIR)/debian/siconos-doc/usr/share/doc/siconos-doc
 
-COMPONENTS := numerics kernel externals mechanics io control
+COMPONENTS := numerics kernel mechanics io control
 SOVERSION := 0
 
 %:
@@ -43,6 +43,15 @@ override_dh_auto_configure:
 	sed -i -e \
 		's,set_target_properties(\(.*\)NO_SONAME ON),set_target_properties(\1SOVERSION "$${SICONOS_SOVERSION}"),' \
 		cmake/UseSWIG.cmake
+
+# Build libsiconos-externals as a static library
+	sed -i -e \
+	  's,if(NOT BUILD_SHARED_LIBS),if(("$${COMPONENT}" STREQUAL "externals") OR (NOT BUILD_SHARED_LIBS)),' \
+	  cmake/LibraryProjectSetup.cmake
+	sed -i -e \
+	  's,add_library($${COMPONENT} STATIC $${$${COMPONENT}_SRCS}),add_library($${COMPONENT} STATIC $${$${COMPONENT}_SRCS})\nif("$${COMPONENT}" STREQUAL "externals")\nset_property(TARGET externals PROPERTY POSITION_INDEPENDENT_CODE ON)\nendif(),' \
+	  cmake/LibraryProjectSetup.cmake
+
 	dh_auto_configure -- \
 		-DFORCE_SKIP_RPATH=1 \
 		-DCMAKE_SKIP_INSTALL_RPATH=TRUE \

@@ -41,7 +41,7 @@ Description: modeling and simulation of nonsmooth dynamical systems
 
 Package: libsiconos-numerics0
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libsiconos-externals0, lp-solve
+Depends: ${shlibs:Depends}, ${misc:Depends}, lp-solve
 Description: modeling and simulation of nonsmooth dynamical systems
  Siconos is an open-source scientific software primarily targeted at
  modeling and simulating nonsmooth dynamical systems
@@ -53,8 +53,7 @@ Provides: libsiconos-numerics-dev
 Conflicts: libsiconos-numerics-dev
 Architecture: any
 Section: libdevel
-Depends: ${misc:Depends}, libsiconos-numerics0 (= ${binary:Version}),
- libsiconos-externals0-dev, cmake (>= 3.0.2)
+Depends: ${misc:Depends}, libsiconos-numerics0 (= ${binary:Version}), cmake (>= 3.0.2)
 Description: modeling and simulation of nonsmooth dynamical systems
  Siconos is an open-source scientific software primarily targeted at
  modeling and simulating nonsmooth dynamical systems
@@ -83,27 +82,6 @@ Description: modeling and simulation of nonsmooth dynamical systems
  modeling and simulating nonsmooth dynamical systems
  .
  This package contains development headers for the 'kernel' component.
-
-Package: libsiconos-externals0
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at
- modeling and simulating nonsmooth dynamical systems
- .
- This package contains the Siconos shared library for the 'externals' component.
-
-Package: libsiconos-externals0-dev
-Provides: libsiconos-externals-dev
-Conflicts: libsiconos-externals-dev
-Architecture: any
-Section: libdevel
-Depends: ${misc:Depends}, libsiconos-externals0 (= ${binary:Version}), libsiconos-common0-dev, cmake (>= 3.0.2), libboost-dev (>= 1.47), lp-solve, libgmp-dev
-Description: modeling and simulation of nonsmooth dynamical systems
- Siconos is an open-source scientific software primarily targeted at
- modeling and simulating nonsmooth dynamical systems
- .
- This package contains development headers for the 'externals' component.
 
 Package: libsiconos-mechanics0
 Architecture: any

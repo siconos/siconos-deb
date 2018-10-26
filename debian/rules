@@ -37,9 +37,9 @@ TESTS_TO_SKIP=\
 
 # Notes: remove rpath due to Debian policy
 override_dh_auto_configure:
-	if ! [ -e $(CURDIR)/swig3.0 ]; then                        \
+	which ccache && if ! [ -e $(CURDIR)/swig3.0 ]; then        \
 	  ln -s /usr/bin/ccache $(CURDIR)/swig3.0;                 \
-	fi
+	fi || echo Using non-ccache swig3.0
 	dh_auto_configure --                                       \
 	-DCMAKE_SKIP_BUILD_RPATH=TRUE                              \
 	-DFORCE_SKIP_RPATH=1                                       \
@@ -59,7 +59,7 @@ override_dh_auto_configure:
 	-DWITH_OCE=OFF                                             \
 	-DIDONTWANTMPI=ON                                          \
 	-DWITH_MUMPS=ON                                            \
-	-DSWIG_EXECUTABLE=$(CURDIR)/swig3.0                        \
+	-DSWIG_EXECUTABLE=`ls $(CURDIR)/swig3.0 || which swig3.0`  \
 	-Dpython_install_options="--install-layout=deb"            \
 	-Dtests_timeout=30
 

@@ -1,0 +1,17 @@
+Tests: kernel-dev
+Depends: build-essential, libsiconos-kernel-dev, shunit2
+
+Tests: numerics-tests kernel-tests control-tests
+Depends: build-essential, siconos, libcppunit-dev, shunit2
+
+Tests: kernel-tests-python, control-tests-python
+Depends: python3-siconos, shunit2
+
+Tests: mechanics-tests
+Depends: build-essential, siconos, libbullet-dev, libcppunit-dev, shunit2
+
+Tests: mechanics-tests-python
+Depends: python3-siconos, shunit2
+
+Tests: mechanics-tools
+Depends: siconos-mechanics-tools, python3-vtk7, file, shunit2

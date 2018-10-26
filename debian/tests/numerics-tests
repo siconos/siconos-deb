@@ -1,0 +1,36 @@
+#!/bin/sh
+
+set -e
+
+SRCDIR=$PWD
+cd $AUTOPKGTEST_TMP
+
+# A small selection of tests for numerics with known output
+
+test_FrictionContact() {
+    siconos -I $SRCDIR/numerics/src/FrictionContact/test-utils/ \
+            $SRCDIR/numerics/src/FrictionContact/test/fc3d_DefaultSolverOptions_test.c
+    assertEquals 256 "$(./fc3d_DefaultSolverOptions_test | wc -l)"
+}
+
+test_MCP() {
+    siconos $SRCDIR/numerics/src/MCP/test/MCP_test.c
+    assertEquals "End of MCP solvers test. " "$(./MCP_test | tail -n1)"
+}
+
+test_ConvexQP() {
+    siconos $SRCDIR/numerics/src/QP/test/ConvexQP_test.c
+    assertEquals 62 "$(./ConvexQP_test | wc -l)"
+}
+
+test_VI() {
+    siconos  $SRCDIR/numerics/src/VI/test/VI_test.c
+    assertEquals 12 "$(./VI_test | wc -l)"
+}
+
+test_tools() {
+    siconos $SRCDIR/numerics/src/tools/test/SparseMatrix_NM_gemm.c
+    assertEquals 229 "$(./SparseMatrix_NM_gemm | wc -l)"
+}
+
+. shunit2

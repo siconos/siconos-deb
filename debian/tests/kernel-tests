@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+SRCDIR="$PWD"
+
+test_OSNSPTest() {
+    cd "$AUTOPKGTEST_TMP"
+    cp $SRCDIR/kernel/src/simulationTools/test/OSNSPTest.hpp .
+    cp $SRCDIR/kernel/src/simulationTools/test/OSNSPTest.cpp .
+    cp $SRCDIR/kernel/src/simulationTools/test/testAVI.ref .
+    cat $SRCDIR/kernel/src/test/TestMain.cpp >>OSNSPTest.cpp
+    siconos -I/usr/include/siconos -lcppunit -DWRAPPER -DEMULATOR OSNSPTest.cpp OSNSPTest
+    assertEquals "OK (1 tests)" "$(./OSNSPTest OSNSPTest | sed /^$/d | tail -n1)"
+}
+
+. shunit2

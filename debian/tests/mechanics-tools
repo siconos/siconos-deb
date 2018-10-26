@@ -1,0 +1,32 @@
+#!/bin/sh
+
+exec 2>&1
+set -e
+SRCDIR=$PWD
+
+test_cube_scene_info_filter_compare() {
+    cd "$AUTOPKGTEST_TMP"
+    cat >cube_scene.py <<EOF
+from siconos.mechanics.collision.tools import Contactor
+from siconos.io.mechanics_hdf5 import MechanicsHdf5
+with MechanicsHdf5(io_filename='cube_scene.hdf5') as io:
+    io.add_primitive_shape('Cube', 'Box', (2, 2, 2))
+    io.add_primitive_shape('Ground', 'Box', (100, 100, .5))
+    io.add_Newton_impact_friction_nsl('contact', mu=0.3)
+    io.add_object('cube', [Contactor('Cube')], translation=[0, 0, 2],
+                  velocity=[10, 0, 0, 1, 1, 1],
+                  mass=1)
+    io.add_object('ground', [Contactor('Ground')],
+                  translation=[0, 0, 0])
+    print('Wrote', io._io_filename)
+EOF
+    python3 cube_scene.py
+    siconos_run -T 3 cube_scene.hdf5
+    assertEquals 601 "$(siconos_info cube_scene.hdf5 | grep 'Time simulated:' | awk '{print$7}')"
+    siconos_filter cube_scene.hdf5 cube_scene_filtered.hdf5
+    assertEquals 601 "$(siconos_info cube_scene.hdf5 | grep 'Time simulated:' | awk '{print$7}')"
+    assertEquals 601 "$(siconos_info cube_scene_filtered.hdf5 | grep 'Time simulated:' | awk '{print$7}')"
+    assertEquals 0.0 "$(siconos_compare cube_scene.hdf5 cube_scene_filtered.hdf5)"
+}
+
+. shunit2

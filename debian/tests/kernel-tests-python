@@ -1,0 +1,96 @@
+#!/bin/sh
+
+set -e
+
+SRCDIR="$PWD"
+
+test_bouncing_ball() {
+    cd "$AUTOPKGTEST_TMP"
+    cat >BouncingBall.py <<EOF
+import siconos.kernel as sk
+import numpy as np
+"""Run a complete simulation (Bouncing ball example)
+LagrangianLinearTIDS,  no plugins."""
+t0, T, h, r, g, m, e, theta = 0., 10.0, 0.005, 0.1, 9.81, 1, 0.9, 0.5
+x = [1.0, 0, 0]
+v = np.zeros_like(x)
+mass = np.eye(3, dtype=np.float64)
+mass[2, 2] = 3. / 5 * r * r
+ball = sk.LagrangianLinearTIDS(x, v, mass)
+weight = np.zeros_like(x)
+weight[0] = -m * g
+ball.setFExtPtr(weight)
+H = [[1,0,0]]
+nslaw = sk.NewtonImpactNSL(e)
+relation = sk.LagrangianLinearTIR(H)
+inter = sk.Interaction(nslaw, relation)
+bouncing_ball = sk.NonSmoothDynamicalSystem(t0, T)
+bouncing_ball.insertDynamicalSystem(ball)
+bouncing_ball.link(inter, ball)
+OSI = sk.MoreauJeanOSI(theta)
+t = sk.TimeDiscretisation(t0, h)
+osnspb = sk.LCP()
+s = sk.TimeStepping(bouncing_ball,t)
+s.insertIntegrator(OSI)
+s.insertNonSmoothProblem(osnspb)
+k = 1
+while s.hasNextEvent():
+    s.computeOneStep()
+    k += 1
+    s.nextStep()
+print('Done',k,'iterations.')
+EOF
+    assertEquals "Done 2001 iterations." "$(python3 BouncingBall.py)"
+}
+
+test_diode_bridge() {
+    cd "$AUTOPKGTEST_TMP"
+    cat >DiodeBridge.py <<EOF
+"""Diode Bridge simulation. See examples manual.
+Test purpose --> compare with reference results.
+"""
+import os
+import siconos.kernel as sk
+from numpy import empty
+t0, T, h, theta = 0.0, 5.0e-3, 1.0e-6, 0.5
+inductance = 1e-2
+capacitance = 1e-6
+resistance = 1e3
+initial_voltage = 10.0
+model_title = "DiodeBridge"
+init_state = [initial_voltage, 0]
+A = [[0, -1.0 / capacitance], [1.0 / inductance, 0]]
+C = [[0., 0.], [0, 0.], [-1., 0.], [1., 0.]]
+D = [[1. / resistance, 1. / resistance, -1., 0.],
+     [1. / resistance, 1. / resistance, 0., -1.],
+     [1., 0., 0., 0.],
+     [0., 1., 0., 0.]]
+B = [[0., 0., -1. / capacitance, 1. / capacitance],
+     [0., 0., 0., 0.]]
+bridge_ds = sk.FirstOrderLinearDS(init_state, A)
+diode_bridge_relation = sk.FirstOrderLinearTIR(C, B)
+diode_bridge_relation.setDPtr(D)
+nslaw = sk.ComplementarityConditionNSL(4)
+bridge_interaction = sk.Interaction(nslaw, diode_bridge_relation)
+diode_bridge = sk.NonSmoothDynamicalSystem(t0, T)
+diode_bridge.setTitle(model_title)
+diode_bridge.insertDynamicalSystem(bridge_ds)
+diode_bridge.link(bridge_interaction, bridge_ds)
+integrator = sk.EulerMoreauOSI(theta)
+time_discretisation = sk.TimeDiscretisation(t0, h)
+non_smooth_problem = sk.LCP()
+bridge_simulation = sk.TimeStepping(diode_bridge,time_discretisation,
+                                    integrator, non_smooth_problem)
+k = 0
+h = bridge_simulation.timeStep()
+k += 1
+while bridge_simulation.hasNextEvent():
+    bridge_simulation.computeOneStep()
+    k += 1
+    bridge_simulation.nextStep()
+print('Done',k,'iterations.')
+EOF
+    assertEquals "Done 5001 iterations." "$(python3 DiodeBridge.py)"
+}
+
+. shunit2

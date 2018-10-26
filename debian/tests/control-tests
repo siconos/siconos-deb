@@ -1,0 +1,41 @@
+#!/bin/sh
+
+set -e
+
+SRCDIR="$PWD"
+
+test_ObserverTest() {
+    cd "$AUTOPKGTEST_TMP"
+    cp $SRCDIR/control/src/tests/ObserverTest.hpp .
+    cp $SRCDIR/control/src/tests/ObserverTest.cpp .
+    ln -s $SRCDIR/control/src/tests/Luenberger.ref .
+    ln -s $SRCDIR/control/src/tests/SMO.ref .
+    cat $SRCDIR/control/src/tests/TestMain.cpp >> ObserverTest.cpp
+    siconos -I/usr/include/siconos -lcppunit -DWRAPPER -DEMULATOR ObserverTest.cpp ObserverTest
+    assertEquals "OK (4 tests)" "$(./ObserverTest ObserverTest | sed /^$/d | tail -n1)"
+}
+
+test_PIDTest() {
+    cd "$AUTOPKGTEST_TMP"
+    cp $SRCDIR/control/src/tests/PIDTest.hpp .
+    cp $SRCDIR/control/src/tests/PIDTest.cpp .
+    ln -s $SRCDIR/control/src/tests/PID.ref .
+    cat $SRCDIR/control/src/tests/TestMain.cpp >> PIDTest.cpp
+    siconos -I/usr/include/siconos -lcppunit -DWRAPPER -DEMULATOR PIDTest.cpp PIDTest
+    assertEquals "OK (2 tests)" "$(./PIDTest PIDTest | sed /^$/d | tail -n1)"
+}
+
+# some SMC tests fail
+test_SMCTest() {
+    cd "$AUTOPKGTEST_TMP"
+    cp $SRCDIR/control/src/tests/SMCTest.hpp .
+    cp $SRCDIR/control/src/tests/SMCTest.cpp .
+    ln -s $SRCDIR/control/src/tests/iSMC.ref .
+    ln -s $SRCDIR/control/src/tests/eSMC.ref .
+    ln -s $SRCDIR/control/src/tests/itw.ref .
+    cat $SRCDIR/control/src/tests/TestMain.cpp >> SMCTest.cpp
+    siconos -I/usr/include/siconos -lcppunit -DWRAPPER -DEMULATOR SMCTest.cpp SMCTest
+    assertEquals "OK (6 tests)" "$(./SMCTest SMCTest | sed /^$/d | tail -n1)"
+}
+
+. shunit2

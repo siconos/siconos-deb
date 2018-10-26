@@ -1,0 +1,56 @@
+#!/bin/sh
+
+exec 2>&1
+set -e
+SRCDIR=$PWD
+
+test_bullet_bouncing_box() {
+    cd "$AUTOPKGTEST_TMP"
+    cat >BulletBouncingBox.py <<EOF
+import os, sys
+import siconos.kernel as sk
+from siconos.mechanics.collision.bullet import \
+     SiconosBulletCollisionManager
+from siconos.mechanics.collision import \
+    SiconosBox, SiconosPlane, BodyDS, SiconosContactor, SiconosContactorSet
+t0, T, h, g, theta = 0, 20, 0.005, 9.81, 0.5
+box1 = SiconosBox(1.0, 1.0, 1.0)
+body = BodyDS([0, 0, 10, 1., 0, 0, 0], [0, 0, 0, 0., 0., 0.], 1.0)
+body.contactors().push_back(SiconosContactor(box1))
+weight = [0, 0, -body.scalarMass() * g]
+body.setFExtPtr(weight)
+bouncingBox = sk.NonSmoothDynamicalSystem(t0, T)
+bouncingBox.insertDynamicalSystem(body)
+osi = sk.MoreauJeanOSI(theta)
+ground = SiconosPlane()
+groundOffset = [0,0,-0.5,1,0,0,0]
+timedisc = sk.TimeDiscretisation(t0, h)
+osnspb = sk.FrictionContact(3)
+osnspb.numericsSolverOptions().iparam[0] = 1000
+osnspb.numericsSolverOptions().dparam[0] = 1e-5
+osnspb.setMaxSize(16384)
+osnspb.setMStorageType(1)
+osnspb.setNumericsVerboseMode(False)
+osnspb.setKeepLambdaAndYState(True)
+nslaw = sk.NewtonImpactFrictionNSL(0.8, 0., 0., 3)
+broadphase = SiconosBulletCollisionManager()
+broadphase.insertNonSmoothLaw(nslaw, 0, 0)
+scs = SiconosContactorSet()
+scs.append(SiconosContactor(ground))
+broadphase.insertStaticContactorSet(scs, groundOffset)
+simulation = sk.TimeStepping(bouncingBox, timedisc)
+simulation.insertInteractionManager(broadphase)
+simulation.insertIntegrator(osi)
+simulation.insertNonSmoothProblem(osnspb)
+k = 1
+while(simulation.hasNextEvent()):
+    simulation.computeOneStep()
+    k += 1
+    simulation.nextStep()
+print('Done',k,'iterations.')
+EOF
+    python3 BulletBouncingBox.py
+    assertEquals "Done 4001 iterations." "$(python3 BulletBouncingBox.py | tail -n1)"
+}
+
+. shunit2

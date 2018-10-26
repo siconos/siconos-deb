@@ -1,0 +1,4 @@
+usr/bin/siconos
+usr/share/man/man1/siconos.1
+usr/share/siconos/CMakeLists.txt
+usr/share/siconos/cmake/*.cmake

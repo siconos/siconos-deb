@@ -1,0 +1,55 @@
+#!/bin/sh
+
+set -e
+
+# Test that we can manually (without `siconos' tool) compile and run
+# a basic Siconos program that uses the siconos kernel library.
+
+test_kernel_dev() {
+    cd "$AUTOPKGTEST_TMP"
+    cat >KernelDevTest.cpp <<EOF
+#include "SiconosKernel.hpp"
+int main(int argc, char* argv[])
+{
+  try
+  {
+    SP::SiconosMatrix Mass(new SimpleMatrix(3, 3));
+    Mass->eye();
+    SP::SiconosVector q0(new SiconosVector(3));
+    SP::SiconosVector v0(new SiconosVector(3));
+    SP::LagrangianLinearTIDS ball(new LagrangianLinearTIDS(q0, v0, Mass));
+    SP::SiconosVector weight(new SiconosVector(3));
+    ball->setFExtPtr(weight);
+    SP::SimpleMatrix H(new SimpleMatrix(1, 3));
+    SP::NonSmoothLaw nslaw(new NewtonImpactNSL(0));
+    SP::Relation relation(new LagrangianLinearTIR(H));
+    SP::Interaction inter(new Interaction(nslaw, relation));
+    SP::NonSmoothDynamicalSystem bouncingBall(new NonSmoothDynamicalSystem(0,1));
+    bouncingBall->insertDynamicalSystem(ball);
+    bouncingBall->link(inter, ball);
+    SP::MoreauJeanOSI OSI(new MoreauJeanOSI(0.5));
+    SP::TimeDiscretisation t(new TimeDiscretisation(0,0.01));
+    SP::OneStepNSProblem osnspb(new LCP());
+    SP::TimeStepping s(new TimeStepping(bouncingBall, t, OSI, osnspb));
+    while (s->hasNextEvent())
+    {
+      s->computeOneStep();
+      s->nextStep();
+    }
+    std::cout << "Done." << std::endl;
+  }
+  catch (SiconosException e)
+  {
+    std::cout << e.report() << std::endl;
+  }
+  catch (...)
+  {
+    std::cout << "Exception caught in KernelDevTest.cpp" << std::endl;
+  }
+}
+EOF
+    g++ -I/usr/include/siconos -o KernelDevTest KernelDevTest.cpp -lsiconos_kernel
+    assertEquals "Done." "$(./KernelDevTest)"
+}
+
+. shunit2

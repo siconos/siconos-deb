@@ -1,0 +1,51 @@
+#! /bin/sh
+
+set -e
+
+SRCDIR="$PWD"
+
+test_PID() {
+    cd "$AUTOPKGTEST_TMP"
+    cat >PID.py <<EOF
+import siconos.kernel as sk
+from siconos.control.simulation import ControlManager
+from siconos.control.sensor import LinearSensor
+from siconos.control.controller import PID
+t0, T, h, theta = 0.0, 100.0, 0.05, 0.5
+N = int((T - t0) / h + 10)
+A = [[0,1],[0,0]]
+B = [[0], [1]]
+x0 = [10., 10.]
+C = [[1., 0]]
+K = [.25, .125, 2]
+doubleIntegrator = sk.FirstOrderLinearTIDS(x0, A)
+process = sk.NonSmoothDynamicalSystem(t0, T)
+process.insertDynamicalSystem(doubleIntegrator)
+OSI = sk.EulerMoreauOSI(theta)
+t = sk.TimeDiscretisation(t0, h)
+tSensor = sk.TimeDiscretisation(t0, h)
+tActuator = sk.TimeDiscretisation(t0, h)
+s = sk.TimeStepping(process, t, 0)
+s.insertIntegrator(OSI)
+control = ControlManager(s)
+sens = LinearSensor(doubleIntegrator, C)
+act = PID(sens)
+act.setB(B)
+act.setRef(0.0)
+act.setK(K)
+act.setDeltaT(h)
+control.addSensorPtr(sens, tSensor)
+control.addActuatorPtr(act, tActuator)
+control.initialize(process)
+k = 1
+while s.hasNextEvent() and s.getTkp1() <= T:
+    s.computeOneStep()
+    s.nextStep()
+    k += 1
+print('Done',k,'iterations.')
+EOF
+    python3 PID.py
+    assertEquals "Done 6001 iterations." "$(python3 PID.py | tail -n1)"
+}
+
+. shunit2

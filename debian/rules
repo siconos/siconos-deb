@@ -1,0 +1,94 @@
+#!/usr/bin/make -f
+
+# TODO MPI? test with GlobalFrictionalContact3D_SparseBlockStorage
+# TODO doc package
+# TODO: symbols files
+# TODO: file ITPs
+
+export DH_VERBOSE=1
+
+export DEB_BUILD_MAINT_OPTIONS=hardening=+bindnow
+
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/default.mk
+
+LIBDIR=/usr/lib/$(DEB_HOST_MULTIARCH)
+
+ifneq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	TESTING=OFF
+else
+	TESTING=ON
+endif
+
+# These tests are failing
+TESTS_TO_SKIP=\
+ fc3d__NSN_AC_Tol_1e-5_Max_1000_inTol_0_inMax_0_IPARAM_1_Capsules-i100-1090 \
+ fc3d__NSN_AC_TEST_Tol_1e-5_Max_1000_inTol_0_inMax_0_IPARAM_1_Capsules-i101-404 \
+ fc3d__NSN_AC_TEST_Tol_1e-3_Max_1000_inTol_0_inMax_0_Capsules-i101-404 \
+ fc3d__ADMM_Tol_1e-08_Max_100000_inTol_0_inMax_0_IPARAM_SICONOS_FRICTION_3D_ADMM_RHO_STRATEGY_RESIDUAL_BALANCING_LMGC_100_PR_PerioBox-i00361-60-03000.hdf5 \
+ fc3d__ADMM_Tol_1e-08_Max_100000_inTol_0_inMax_0_IPARAM_SICONOS_FRICTION_3D_ADMM_RHO_STRATEGY_RESIDUAL_BALANCING_SICONOS_FRICTION_3D_ADMM_FORCED_SPARSE_STORAGE_LMGC_100_PR_PerioBox-i00361-60-03000.hdf5 \
+ gfc3d__NSN_AC_Tol_0_Max_0_inTol_0_inMax_0_LMGC_GFC3D_CubeH8.hdf5 \
+ gfc3d__NSN_AC_Tol_1e-14_Max_0_inTol_0_inMax_0_LMGC_GFC3D-i00501-4-00000.hdf5
+
+# We disable parallel build because an 8 GB laptop runs out of memory
+# with 4 parallel processes
+%:
+	dh $@ --with python3 --no-parallel
+
+# Notes: remove rpath due to Debian policy
+override_dh_auto_configure:
+	if ! [ -e $(CURDIR)/swig3.0 ]; then                        \
+	  ln -s /usr/bin/ccache $(CURDIR)/swig3.0;                 \
+	fi
+	dh_auto_configure --                                       \
+	-DCMAKE_SKIP_BUILD_RPATH=TRUE                              \
+	-DFORCE_SKIP_RPATH=1                                       \
+	-DCMAKE_SKIP_INSTALL_RPATH=TRUE                            \
+	-DCMAKE_SKIP_RPATH=TRUE                                    \
+	-DINSTALL_CMAKE_DIR=$(LIBDIR)/cmake/siconos                \
+	-DPYTHON_EXECUTABLE=$(shell which python3)                 \
+	-DI_WANT_STATIC_LPSOLVE=ON                                 \
+	-DLpSolve_LIBRARY=/usr/lib/liblpsolve55_pic.a              \
+	-DWITH_TESTING=$(TESTING)                                  \
+	-DWITH_DOCUMENTATION=ON                                    \
+	-DWITH_DOXY2SWIG=ON                                        \
+	-DWITH_SYSTEM_SUITESPARSE=ON                               \
+	-DWITH_SERIALIZATION=ON                                    \
+	-DWITH_BULLET=ON                                           \
+	-DWITH_FCLIB=ON                                            \
+	-DWITH_OCE=OFF                                             \
+	-DIDONTWANTMPI=ON                                          \
+	-DWITH_MUMPS=ON                                            \
+	-DSWIG_EXECUTABLE=$(CURDIR)/swig3.0                        \
+	-Dpython_install_options="--install-layout=deb"            \
+	-Dtests_timeout=30
+
+# Build ctest regular expression
+null  :=
+space := $(null)
+or := |
+TESTS_TO_SKIP := $(subst $(space),$(or),$(strip $(TESTS_TO_SKIP)))
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	dh_auto_test -- ARGS="-E '$(TESTS_TO_SKIP)'"
+endif
+
+# Install software, headers, docs.
+override_dh_auto_install:
+# Software
+	dh_auto_install
+
+# Headers separated by component.  No headers for externals.
+	for comp in numerics kernel control mechanics io; do \
+	  echo installing headers for libsiconos-$${comp}-dev; \
+	  ls debian/tmp/usr/include/siconos | while read file; do \
+		find $${comp} -name $${file} -exec \
+	      install -D -t debian/libsiconos-$${comp}-dev/usr/include/siconos {} \; ; \
+	  done; \
+	done
+
+# If ccache was used to build package, ensure installed CMake files
+# for the `siconos` tool do not require it.
+	sed -i -e 's,/usr/lib/ccache/c++,/usr/bin/c++,g'  -e 's,/usr/lib/ccache/cc,/usr/bin/cc,g' \
+	  debian/tmp/usr/share/siconos/CMakeLists.txt

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -e
+
+SRCDIR="$PWD"
+
+test_MultiBodyTest() {
+    cd "$AUTOPKGTEST_TMP"
+    cp $SRCDIR/mechanics/src/collision/native/test/MultiBodyTest.hpp .
+    cp $SRCDIR/mechanics/src/collision/native/test/MultiBodyTest.cpp .
+    cp $SRCDIR/mechanics/src/collision/native/test/plans.dat .
+    cp $SRCDIR/mechanics/src/collision/native/test/disks.dat .
+    cp $SRCDIR/mechanics/src/collision/native/test/disks-nointer.dat .
+    cat $SRCDIR/mechanics/src/collision/native/test/TestMain.cpp >>MultiBodyTest.cpp
+    siconos -lcppunit -DWRAPPER -DEMULATOR MultiBodyTest.cpp MultiBodyTest
+}
+
+test_ContactTest() {
+    cd "$AUTOPKGTEST_TMP"
+    cp $SRCDIR/mechanics/src/collision/bullet/test/ContactTest.hpp .
+    cp $SRCDIR/mechanics/src/collision/bullet/test/ContactTest.cpp .
+    sed --in-place -e 's/fprintf(stderr,/printf(/' ContactTest.cpp
+    cat $SRCDIR/mechanics/src/collision/native/test/TestMain.cpp >>ContactTest.cpp
+    siconos -lcppunit -DWRAPPER -DEMULATOR ContactTest.cpp ContactTest
+}
+
+. shunit2

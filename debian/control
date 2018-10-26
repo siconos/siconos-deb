@@ -1,0 +1,442 @@
+Source: siconos
+Maintainer: Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>
+Uploaders: Stephen Sinclair <radarsat1@gmail.com>
+Section: science
+Priority: optional
+Build-Depends: debhelper (>= 11),
+               cmake (>= 3.0.2),
+               libhdf5-dev (>= 1.10),
+               libsuitesparse-dev (>= 1:5.1.2),
+               libgmp3-dev,
+               swig3.0,
+               libmumps-seq-dev,
+               doxygen,
+               graphviz,
+               help2man,
+               python3-sphinx,
+               python3-sphinx-bootstrap-theme,
+               python3-sphinxcontrib.bibtex,
+               python3-sphinxcontrib.youtube,
+               python3-breathe,
+               libbullet-dev,
+               libboost-graph-dev,
+               libboost-filesystem-dev,
+               libboost-serialization-dev,
+               liblpsolve55-dev,
+               libatlas-base-dev,
+               gfortran,
+               libcppunit-dev,
+               libfclib-dev,
+               python3-lxml,
+               python3-scipy,
+               python3-numpy,
+               python3-pytest,
+               python3-vtk7,
+               python3-h5py,
+               python3-dev
+Standards-Version: 4.2.1
+Vcs-Browser: https://salsa.debian.org/science-team/siconos
+Vcs-Git: https://salsa.debian.org/science-team/siconos.git
+Homepage: https://nonsmooth.gricad-pages.univ-grenoble-alpes.fr/siconos/index.html
+Rules-Requires-Root: no
+
+Package: siconos
+Architecture: any
+Multi-Arch: allowed
+Section: libs
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         ${python3:Depends},
+         cmake,
+         libsiconos-numerics-dev (= ${binary:Version}),
+         libsiconos-kernel-dev (= ${binary:Version}),
+         libsiconos-control-dev (= ${binary:Version}),
+         libsiconos-mechanics-dev (= ${binary:Version}),
+         libsiconos-io-dev (= ${binary:Version})
+Description: modeling and simulation of nonsmooth dynamical systems (simulation runner tool)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains the 'siconos' tool allowing to compile and run
+ Siconos programs/scripts in a single command.
+
+Package: siconos-mechanics-tools
+Architecture: any
+Multi-Arch: allowed
+Section: libs
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         ${python3:Depends},
+         python3-siconos (= ${binary:Version}),
+         python3-h5py (>= 2.8.0-1),
+         python3-vtk7
+Description: modeling and simulation of nonsmooth dynamical systems (mechanics tools)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains tools to allow running, analysing, manipulating,
+ exporting, and viewing the output of mechanical simulations.
+
+Package: libsiconos-numerics6
+Architecture: any
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libfclib0,
+         libhdf5-100
+Description: modeling and simulation of nonsmooth dynamical systems (numerics lib)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains the library for the numerics component of
+ Siconos, an interface to a collection of common numerical solvers.
+
+Package: libsiconos-numerics-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libsiconos-numerics6 (= ${binary:Version}),
+         libhdf5-dev (>= 1.10),
+         libsuitesparse-dev (>= 1:5.1.2)
+Description: modeling and simulation of nonsmooth dynamical systems (numerics dev)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains the development headers for the numerics
+ component of Siconos, an interface to a collection of common
+ numerical solvers.
+
+Package: libsiconos-kernel6
+Architecture: any
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libsiconos-numerics6 (= ${binary:Version})
+Description: modeling and simulation of nonsmooth dynamical systems (kernel lib)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains the library for the kernel component of Siconos.
+
+Package: libsiconos-kernel-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libsiconos-kernel6 (= ${binary:Version}),
+         libsiconos-numerics-dev (= ${binary:Version}),
+         libsuitesparse-dev (>= 1:5.1.2),
+         libboost-dev (>= 1.62.0.1),
+         libgmp-dev (>= 2:6.1.2+dfsg-3)
+Description: modeling and simulation of nonsmooth dynamical systems (kernel dev)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains the development headers for the kernel
+ component of Siconos.
+
+Package: libsiconos-control6
+Architecture: any
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libsiconos-numerics6 (= ${binary:Version}),
+         libsiconos-kernel6 (= ${binary:Version})
+Description: modeling and simulation of nonsmooth dynamical systems (control lib)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains the library for the control component of Siconos.
+
+Package: libsiconos-control-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libsiconos-control6 (= ${binary:Version}),
+         libsiconos-kernel-dev (= ${binary:Version})
+Description: modeling and simulation of nonsmooth dynamical systems (control dev)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains the development headers for the control
+ component of Siconos.
+
+Package: libsiconos-mechanics6
+Architecture: any
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libsiconos-numerics6 (= ${binary:Version}),
+         libsiconos-kernel6 (= ${binary:Version}),
+         libbullet2.87
+Description: modeling and simulation of nonsmooth dynamical systems (mechanics lib)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains the library for the mechanics component of Siconos.
+
+Package: libsiconos-mechanics-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libsiconos-mechanics6 (= ${binary:Version}),
+         libsiconos-kernel-dev (= ${binary:Version})
+Description: modeling and simulation of nonsmooth dynamical systems (mechanics dev)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains the development headers for the mechanics
+ component of Siconos.
+
+Package: libsiconos-io6
+Architecture: any
+Multi-Arch: same
+Section: libs
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libsiconos-numerics6 (= ${binary:Version}),
+         libsiconos-kernel6 (= ${binary:Version}),
+         libbullet2.87
+Description: modeling and simulation of nonsmooth dynamical systems (io lib)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains the library for the I/O component of Siconos.
+
+Package: libsiconos-io-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         libsiconos-io6 (= ${binary:Version}),
+         libsiconos-kernel-dev (= ${binary:Version})
+Description: modeling and simulation of nonsmooth dynamical systems (io dev)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains the development headers for the I/O component
+ of Siconos.
+
+Package: siconos-examples
+Architecture: any
+Multi-Arch: foreign
+Section: libdevel
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         python3-scipy,
+         python3-matplotlib,
+         python3-h5py,
+         siconos (= ${binary:Version})
+Description: modeling and simulation of nonsmooth dynamical systems (examples)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains examples to be run using the `siconos' tool.
+
+Package: python3-siconos
+Architecture: any
+Section: python
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         ${python3:Depends},
+         python3-numpy,
+         siconos (= ${binary:Version})
+Description: modeling and simulation of nonsmooth dynamical systems (python3)
+ Siconos is an open-source scientific software primarily targeted at
+ modeling and simulating nonsmooth dynamical systems in C++ and in
+ Python:
+   * Mechanical systems (rigid or solid) with unilateral contact and
+     Coulomb friction and impact (nonsmooth mechanics, contact dynamics,
+     multibody systems dynamics or granular materials).
+   * Switched Electrical Circuit such as electrical circuits with ideal
+     and piecewise linear components: power converter, rectifier,
+     Phase-Locked Loop (PLL) or Analog-to-Digital converter.
+   * Sliding mode control systems.
+   * Biology (Gene regulatory network).
+ Other applications are found in Systems and Control (hybrid systems,
+ differential inclusions, optimal control with state constraints),
+ Optimization (Complementarity systems and Variational inequalities),
+ Fluid Mechanics, and Computer Graphics.
+ .
+ This package contains Python 3 wrapper modules.

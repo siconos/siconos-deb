@@ -1,0 +1,12 @@
+usr/bin/siconos_compare
+usr/bin/siconos_filter
+usr/bin/siconos_info
+usr/bin/siconos_run
+usr/bin/siconos_vexport
+usr/bin/siconos_vview
+usr/share/man/man1/siconos_vview.1
+usr/share/man/man1/siconos_vexport.1
+usr/share/man/man1/siconos_info.1
+usr/share/man/man1/siconos_run.1
+usr/share/man/man1/siconos_filter.1
+usr/share/man/man1/siconos_compare.1

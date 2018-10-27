@@ -4,6 +4,7 @@ Uploaders: Stephen Sinclair <radarsat1@gmail.com>
 Section: science
 Priority: optional
 Build-Depends: debhelper (>= 11),
+               dh-python,
                cmake (>= 3.0.2),
                libhdf5-dev (>= 1.10),
                libsuitesparse-dev (>= 1:5.1.2),

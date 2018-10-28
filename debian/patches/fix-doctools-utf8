@@ -1,0 +1,47 @@
+Description: Fix some errors in doctools.py due to accent characters.
+
+ Some errors in this tool were produced due to file encoding for
+ accented characters in the Debian build environment.
+ .
+ siconos (4.2.0+git20181026.0ee5349+dfsg-1) UNRELEASED; urgency=medium
+ .
+Author: Stephen Sinclair <radarsat1@gmail.com>
+
+--- siconos-4.2.0+git20181026.0ee5349+dfsg.orig/docs/doctools.py
++++ siconos-4.2.0+git20181026.0ee5349+dfsg/docs/doctools.py
+@@ -353,9 +353,9 @@ def build_docstrings(headers, component_
+ 
+     outputfile = os.path.join(siconos_swig_path, component_name + '-docstrings.i')
+     swigfiles = glob.glob(os.path.join(swig_working_dir, '*.i'))
+-    with open(outputfile, 'w') as outfile:
++    with open(outputfile, 'w', encoding='utf8') as outfile:
+         for fname in swigfiles:
+-            with open(fname) as infile:
++            with open(fname, encoding='utf8') as infile:
+                 for line in infile:
+                     outfile.write(line)
+     msg = 'Generates file ' # + outputfile + ' for doctrings in swig.'
+@@ -1182,10 +1182,10 @@ def filter_dot_in_xml_formulas(xmlfile):
+         xml file name (full path) (in-out param)
+     """
+     fileout = xmlfile.split('.')[0] + '.tmp'
+-    with open(xmlfile, 'r+') as f:
++    with open(xmlfile, 'r+', encoding='utf8') as f:
+         lines = f.read()
+     newlines = lines.replace(r'\\dot', r'\dot')
+-    with open(fileout, 'w') as f:
++    with open(fileout, 'w', encoding='utf8') as f:
+         f.write(newlines)
+     shutil.move(fileout, xmlfile)
+ 
+--- siconos-4.2.0+git20181026.0ee5349+dfsg.orig/docs/sicodoxy2swig.py
++++ siconos-4.2.0+git20181026.0ee5349+dfsg/docs/sicodoxy2swig.py
+@@ -171,7 +171,7 @@ class SiconosDoxy2Swig(Doxy2SWIG):
+             self.enums[ename] = (old_type, edescr)
+             
+     def write(self, fname):
+-        with open(fname, 'w') as o:
++        with open(fname, 'w', encoding='utf8') as o:
+             if(sys.version_info > (3, 0)):
+                 o.write(''.join(self.pieces))
+             else:

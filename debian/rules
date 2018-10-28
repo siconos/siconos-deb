@@ -50,7 +50,7 @@ override_dh_auto_configure:
 	-DCMAKE_SKIP_INSTALL_RPATH=TRUE                            \
 	-DCMAKE_SKIP_RPATH=TRUE                                    \
 	-DINSTALL_CMAKE_DIR=$(LIBDIR)/cmake/siconos                \
-	-DPYTHON_EXECUTABLE=$(shell which python3.7)               \
+	-DPYTHON_EXECUTABLE=$(shell which python3)                 \
 	-DI_WANT_STATIC_LPSOLVE=ON                                 \
 	-DLpSolve_LIBRARY=/usr/lib/liblpsolve55_pic.a              \
 	-DWITH_TESTING=$(TESTING)                                  \

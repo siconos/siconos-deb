@@ -14,4 +14,4 @@ Tests: mechanics-tests-python
 Depends: python3-siconos, shunit2
 
 Tests: mechanics-tools
-Depends: siconos-mechanics-tools, python3-vtk7, file, shunit2
+Depends: siconos-mechanics-tools, python3-vtk7, python3-scipy, file, shunit2

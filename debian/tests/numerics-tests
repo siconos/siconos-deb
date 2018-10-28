@@ -10,7 +10,7 @@ cd $AUTOPKGTEST_TMP
 test_FrictionContact() {
     siconos -I $SRCDIR/numerics/src/FrictionContact/test-utils/ \
             $SRCDIR/numerics/src/FrictionContact/test/fc3d_DefaultSolverOptions_test.c
-    assertEquals 256 "$(./fc3d_DefaultSolverOptions_test | wc -l)"
+    assertEquals 252 "$(./fc3d_DefaultSolverOptions_test | wc -l)"
 }
 
 test_MCP() {
@@ -20,7 +20,7 @@ test_MCP() {
 
 test_ConvexQP() {
     siconos $SRCDIR/numerics/src/QP/test/ConvexQP_test.c
-    assertEquals 62 "$(./ConvexQP_test | wc -l)"
+    assertEquals 66 "$(./ConvexQP_test | wc -l)"
 }
 
 test_VI() {
@@ -30,7 +30,7 @@ test_VI() {
 
 test_tools() {
     siconos $SRCDIR/numerics/src/tools/test/SparseMatrix_NM_gemm.c
-    assertEquals 229 "$(./SparseMatrix_NM_gemm | wc -l)"
+    assertEquals 259 "$(./SparseMatrix_NM_gemm | wc -l)"
 }
 
 . shunit2

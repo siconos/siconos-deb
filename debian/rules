@@ -20,6 +20,10 @@ else
 	TESTING=ON
 endif
 
+ifneq (,$(filter terse,$(DEB_BUILD_OPTIONS)))
+	CMAKE_VERBOSE_OFF=-DCMAKE_VERBOSE_MAKEFILE=OFF
+endif
+
 # These tests are failing
 TESTS_TO_SKIP=\
  fc3d__NSN_AC_Tol_1e-5_Max_1000_inTol_0_inMax_0_IPARAM_1_Capsules-i100-1090 \
@@ -61,7 +65,7 @@ override_dh_auto_configure:
 	-DWITH_MUMPS=ON                                            \
 	-DSWIG_EXECUTABLE=`ls $(CURDIR)/swig3.0 || which swig3.0`  \
 	-Dpython_install_options="--install-layout=deb"            \
-	-DCMAKE_VERBOSE_MAKEFILE=OFF                               \
+	$(CMAKE_VERBOSE_OFF)                                       \
 	-Dtests_timeout=30
 
 # Build ctest regular expression

@@ -1,5 +1,5 @@
 siconos (4.2.0+git20181026.0ee5349+dfsg-1) UNRELEASED; urgency=medium
 
-  * Initial release. (Closes: #??????)
+  * Initial release. (Closes: #915656)
 
- -- Stephen Sinclair <radarsat1@gmail.com>  Fri, 26 Oct 2018 15:03:41 +0200
+ -- Stephen Sinclair <radarsat1@gmail.com>  Wed, 05 Dec 2018 17:18:02 +0100

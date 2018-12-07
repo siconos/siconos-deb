@@ -108,9 +108,7 @@ Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
-         ${shlibs:Depends},
-         libfclib0,
-         libhdf5-100
+         ${shlibs:Depends}
 Description: modeling and simulation of nonsmooth dynamical systems (numerics lib)
  Siconos is an open-source scientific software primarily targeted at
  modeling and simulating nonsmooth dynamical systems in C++ and in
@@ -280,8 +278,7 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          libsiconos-numerics6 (= ${binary:Version}),
-         libsiconos-kernel6 (= ${binary:Version}),
-         libbullet2.87
+         libsiconos-kernel6 (= ${binary:Version})
 Description: modeling and simulation of nonsmooth dynamical systems (mechanics lib)
  Siconos is an open-source scientific software primarily targeted at
  modeling and simulating nonsmooth dynamical systems in C++ and in
@@ -336,8 +333,7 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          libsiconos-numerics6 (= ${binary:Version}),
-         libsiconos-kernel6 (= ${binary:Version}),
-         libbullet2.87
+         libsiconos-kernel6 (= ${binary:Version})
 Description: modeling and simulation of nonsmooth dynamical systems (io lib)
  Siconos is an open-source scientific software primarily targeted at
  modeling and simulating nonsmooth dynamical systems in C++ and in

@@ -1,3 +1,3 @@
-0001-Remove-youtube-links-in-documentation.patch
-fix-doctools-utf8
+remove-youtube-links-in-documentation.patch
+fix-doctools-utf8.patch
 remove-hsource.patch

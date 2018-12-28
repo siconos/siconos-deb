@@ -1,19 +1,13 @@
-From: Stephen Sinclair <radarsat1@gmail.com>
-Date: Fri, 26 Oct 2018 15:57:07 +0200
-Subject: Remove youtube links in documentation.
+Description: Remove youtube links in documentation.
 
----
- debian/control         | 1 -
- docs/CMakeLists.txt    | 9 ---------
- docs/sphinx/conf.py.in | 1 -
- docs/sphinx/video.rst  | 3 ---
- 4 files changed, 14 deletions(-)
- delete mode 100644 docs/sphinx/video.rst
+ Privacy concerns.
+ .
+ siconos (4.2.0+git20181026.0ee5349+dfsg-1) unstable; urgency=medium
+ .
+Author: Stephen Sinclair <radarsat1@gmail.com>
 
-diff --git a/docs/CMakeLists.txt b/docs/CMakeLists.txt
-index 71f46f2..700e1f9 100644
---- a/docs/CMakeLists.txt
-+++ b/docs/CMakeLists.txt
+--- siconos-4.2.0+git20181026.0ee5349+dfsg.orig/docs/CMakeLists.txt
++++ siconos-4.2.0+git20181026.0ee5349+dfsg/docs/CMakeLists.txt
 @@ -96,15 +96,6 @@ if(USE_SPHINX)
    find_sphinx_module(sphinxcontrib bibtex REQUIRED)
    #find_python_module(numpydoc REQUIRED)
@@ -45,7 +39,7 @@ index a00e92c..490eccc 100644
 diff --git a/docs/sphinx/video.rst b/docs/sphinx/video.rst
 deleted file mode 100644
 index b1ef18f..0000000
---- a/docs/sphinx/video.rst
+--- siconos-4.2.0+git20181026.0ee5349+dfsg.orig/docs/sphinx/video.rst
 +++ /dev/null
 @@ -1,3 +0,0 @@
 -.. youtube:: 3I_BkFTqH8I

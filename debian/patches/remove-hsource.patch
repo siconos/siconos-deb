@@ -1,7 +1,14 @@
-diff --git a/io/swig/io/vview.py b/io/swig/io/vview.py
-index 8a236af..a24c725 100644
---- a/io/swig/io/vview.py
-+++ b/io/swig/io/vview.py
+Description: Remove class Hsource from vview.
+
+ This class is not used and depends on a not-yet-imported VTK object,
+ which ruins manpage generation during the build.
+ .
+ siconos (4.2.0+git20181026.0ee5349+dfsg-1) unstable; urgency=medium
+ .
+Author: Stephen Sinclair <radarsat1@gmail.com>
+
+--- siconos-4.2.0+git20181026.0ee5349+dfsg.orig/io/swig/io/vview.py
++++ siconos-4.2.0+git20181026.0ee5349+dfsg/io/swig/io/vview.py
 @@ -771,45 +771,6 @@ def makeConvexSourceClass():
  
  

@@ -2,8 +2,6 @@
 
 # TODO MPI? test with GlobalFrictionalContact3D_SparseBlockStorage
 # TODO doc package
-# TODO: symbols files
-# TODO: file ITPs
 
 export DH_VERBOSE=1
 

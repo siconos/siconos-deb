@@ -68,7 +68,7 @@ override_dh_auto_configure:
 
 # Build ctest regular expression
 null  :=
-space := $(null)
+space := $(null) $(null)
 or := |
 TESTS_TO_SKIP := $(subst $(space),$(or),$(strip $(TESTS_TO_SKIP)))
 

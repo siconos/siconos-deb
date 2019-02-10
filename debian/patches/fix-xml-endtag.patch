@@ -1,0 +1,25 @@
+Author: Stephen Sinclair <radarsat1@gmail.com>
+Date:   Sun Feb 10 11:31:50 2019 +0000
+
+This patch fixes a failure in test_serialization.py for BOOST 1.67,
+and has been contributed upstream for the next release.
+
+diff --git a/wrap/swig/picklable.i b/wrap/swig/picklable.i
+index 0acf126..ad3f626 100644
+--- a/wrap/swig/picklable.i
++++ b/wrap/swig/picklable.i
+@@ -81,9 +81,11 @@ typedef std::string bytes;
+   std::string xml_export()
+   {
+     std::stringstream ss;
+-    boost::archive::xml_oarchive ar(ss);
+-    siconos_io_register_ ## COMPONENT(ar);
+-    ar << ::boost::serialization::make_nvp(BOOST_PP_STRINGIZE(CLASS),(*($self)));
++    {
++      boost::archive::xml_oarchive ar(ss);
++      siconos_io_register_ ## COMPONENT(ar);
++      ar << ::boost::serialization::make_nvp(BOOST_PP_STRINGIZE(CLASS),(*($self)));
++    }
+     return ss.str();
+   }
+ 

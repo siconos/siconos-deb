@@ -2,3 +2,4 @@ remove-youtube-links-in-documentation.patch
 fix-doctools-utf8.patch
 remove-hsource.patch
 fix-xml-endtag.patch
+remove-det.patch

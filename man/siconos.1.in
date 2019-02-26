@@ -1,0 +1,195 @@
+.TH SICONOS 1
+
+.SH NAME
+siconos \- Siconos C++ Compilation.
+
+.SH SYNOPSIS
+.B siconos
+[
+.B \-a
+]
+[
+.B \--build-dir
+.I DIRECTORY
+]
+[
+.B \--clean-build
+]
+[
+.B \-c | \--clean
+]
+[
+.B \-D 
+.I KEY [=VALUE]
+]
+[
+.B \-g
+]
+[
+.B \-h | \--help
+]
+[
+.B \-j JOBS
+]
+[
+.B \-L  
+.I DIRECTORY
+]
+[
+.B \-l  
+.I LIBRARY
+]
+[
+.B \--noexec
+]
+[
+.B \--nocomp
+]
+[
+.B \--opt 
+.I C++ COMPILER OPTION
+]
+[
+.B \--ldopt 
+.I LINKER OPTION
+]
+[
+.B \-P
+.I PREFIX COMMAND
+]
+[
+.B \--plugin-dir
+.I PLUGIN DIRECTORY
+]
+[
+.B \--plugins-dir
+.I PLUGINS DIRECTORY
+]
+[
+.B \--src-dir
+.I SOURCES DIRECTORY
+]
+[
+.B \-v
+]
+[
+.B \--generator
+.I Generator Name
+]
+[
+.I sample[.cpp|.py]
+]
+[
+.I arguments
+]
+
+.SH DESCRIPTION
+
+The
+.BR siconos (1)
+command compiles, links and runs a Siconos C++ input file. It compiles also
+C plugins and runs a python script.
+
+Siconos is a free (Apache license) software, dedicated to modeling,
+simulation and control of Non Smooth Dynamical Systems.
+
+.SH OPTIONS
+
+The following command-line options are recognized by
+.BR siconos (1).
+.TP
+.BI \-a
+ Find and compile all sources files in 
+.I sample[.cpp|.py]
+ directory.
+.TP
+.BI \--build-dir
+.I DIRECTORY
+ Compile inside specified directory. If /tmp, temp directories are created.
+.TP
+.BI \--clean-build
+ Clean build directory.
+.TP
+.BI \-c 
+|
+.B \--clean
+ Clean the current directory (deletes binary files, etc.).
+.TP
+.BI -D 
+.I KEY [=VALUE]
+ Define a 'cmake' and a 'cpp' variable.
+.TP
+.BI \-g
+ Compile with debug information.
+.TP
+.BI \-h 
+|
+.B \--help
+ Print help.
+.TP
+.BI \-j
+.I JOBS NUMBER
+ Do parallel compilation with JOBS NUMBER jobs
+.TP
+.BI \-L
+.I DIRECTORY
+ Add a directory to the linker search list.
+.TP
+.BI \-l
+.I LIBRARY
+ Link with a library.
+.TP
+.BI \--noexec
+ Do not run executable after compilation.
+.TP
+.BI \--nocomp
+ Do not compile executable before run.
+.TP
+.BI \-O
+.I N
+ set compiler optimization.
+.TP
+.BI \--opt 
+.I COMPILER OPTION
+ Add option to compiler.
+.TP
+.BI \--ldopt 
+.I LINKER OPTION
+ Add option to linker.
+.TP 
+.BI \-P
+.I PREFIX COMMAND
+ Run a prefix command (time, valgrind, gdb, etc.).
+.TP
+.BI \--plugin-dir
+.I PLUGIN DIRECTORY
+ Compile a plugin with the sources under the specified plugin directory.
+ The name of the compiled plugin is the name of the directory. The default is a directory named plugin.
+.TP
+.BI \--plugins-dir
+.I PLUGINS DIRECTORY
+ For each source file under the specified directory, compile a plugin. The default is a directory named plugins.
+.TP
+.BI \--src-dir
+.I SOURCES DIRECTORY
+ add all source files under the specified directory to the compilation of the executable.
+.TP
+.BI \-v
+ Print 
+.BR make (1) 
+commands as they are executed.
+.TP
+.BI \--generator
+.I Generator Name
+ set the generator for cmake (the default is plateform dependent, but usually "Unix Makefiles" under *nix and MacOs). This is mainly useful for Windows users.
+
+.SH EXAMPLES
+
+ siconos -gv -P "time --format '%U'" BouncingBallTS.cpp 
+
+
+.SH SEE ALSO
+.I The Siconos Software Documentation
+.TP
+http://siconos.gforge.inria.fr
+

@@ -1,0 +1,69 @@
+# - Try to find QGLViewer
+# Once done this will define
+#
+#  QGLVIEWER_FOUND - system has QGLViewer
+#  QGLVIEWER_INCLUDE_DIR - the QGLViewer include directory
+#  QGLVIEWER_LIBRARY - Link these to use QGLViewer
+#  QGLVIEWER_DEFINITIONS - Compiler switches required for using QGLViewer
+#
+
+FOREACH(_D QGLViewer;qglviewer-qt4)
+  FIND_PATH(QGLVIEWER_INCLUDE_DIR NAMES qglviewer.h
+    PATHS
+    $ENV{QGLVIEWER_INCLUDE_DIR}
+    /usr/include/${_D}
+    /usr/local/include/${_D}
+    ${siconos_ROOT_DIR}/include/${_D}
+    ${CMAKE_INSTALL_PREFIX}/include/${_D}
+    )
+ENDFOREACH(_D QGLViewer;qglviewer-qt4)
+
+FIND_LIBRARY(QGLVIEWER_LIBRARY NAMES QGLViewer
+  PATHS
+  $ENV{QGLVIEWER_LIB_DIR}
+  /usr/lib
+  /usr/local/lib
+  ${siconos_ROOT_DIR}/lib
+  ${CMAKE_INSTALL_PREFIX}/lib
+)
+
+IF(NOT QGLVIEWER_LIBRARY)
+  FIND_LIBRARY(QGLVIEWER_LIBRARY NAMES 3dviewer
+    PATHS
+    $ENV{QLGLVIEWER_LIB_DIR}
+    /usr/lib
+    /usr/local/lib
+    ${siconos_ROOT_DIR}/lib
+    ${CMAKE_INSTALL_PREFIX}/lib
+  )
+ENDIF(NOT QGLVIEWER_LIBRARY)
+
+IF(NOT QGLVIEWER_LIBRARY)
+  FIND_LIBRARY(QGLVIEWER_LIBRARY NAMES qglviewer-qt4
+    PATHS
+    $ENV{QLGLVIEWER_LIB_DIR}
+    /usr/lib
+    /usr/local/lib
+    ${siconos_ROOT_DIR}/lib
+    ${CMAKE_INSTALL_PREFIX}/lib
+  )
+ENDIF(NOT QGLVIEWER_LIBRARY)
+
+IF(QGLVIEWER_INCLUDE_DIR AND QGLVIEWER_LIBRARY)
+   SET(QGLVIEWER_FOUND TRUE)
+ENDIF(QGLVIEWER_INCLUDE_DIR AND QGLVIEWER_LIBRARY)
+
+IF(QGLVIEWER_FOUND)
+  IF(NOT QGLViewer_FIND_QUIETLY)
+    MESSAGE(STATUS "Found QGLViewer: ${QGLVIEWER_LIBRARY}")
+  ENDIF(NOT QGLViewer_FIND_QUIETLY)
+ELSE(QGLVIEWER_FOUND)
+  IF(QGLViewer_FIND_REQUIRED)
+    MESSAGE(FATAL_ERROR "Could not find QGLViewer")
+  ENDIF(QGLViewer_FIND_REQUIRED)
+ENDIF(QGLVIEWER_FOUND)
+
+# show the QGLVIEWER_INCLUDE_DIR and QGLVIEWER_LIBRARY variables only in the advanced view
+IF(QGLVIEWER_FOUND)
+  MARK_AS_ADVANCED(QGLVIEWER_INCLUDE_DIR QGLVIEWER_LIBRARY )
+ENDIF(QGLVIEWER_FOUND)

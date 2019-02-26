@@ -1,0 +1,187 @@
+/* Siconos is a program dedicated to modeling, simulation and control
+ * of non smooth dynamical systems.
+ *
+ * Copyright 2016 INRIA.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <float.h>
+
+#include "debug.h"
+#include "NonSmoothDrivers.h"
+#include "VI_cst.h"
+#include "SiconosSets.h"
+
+#include "SolverOptions.h"
+#include "NumericsMatrix.h"
+#include "VariationalInequality.h"
+#include "VariationalInequality_Solvers.h"
+
+#define N 2
+
+#ifdef __cplusplus
+#undef restrict
+#define restrict __restrict
+#endif
+
+typedef struct
+{
+  int id;
+  double* xk;
+  double h;
+  double theta;
+  double gamma;
+  double g;
+  double mu1;
+  double kappa;
+  unsigned int f_eval;
+  unsigned int nabla_eval;
+} data_ZIT;
+
+static void F_ZIT(void* problem, int n, double* restrict l, double* restrict F)
+{
+  data_ZIT* d = (data_ZIT*) VI_get_env(problem);
+
+  double xk0 = d->xk[0];
+  double xk1 = d->xk[1];
+  double l0 = l[0];
+  double l1 = l[1];
+  double invR = 1.0/(1.0 - d->kappa*l0*l1);
+  F[1] = d->h*(d->mu1*l0+l1)*invR;
+
+  double v_gamma = xk1 + d->gamma*F[1];
+  F[0] = -d->h*d->kappa*l0*l1*v_gamma;
+
+  double v_theta = xk1 + d->theta*F[1];
+  F[0] += xk0 + d->h*v_theta;
+  F[1] += xk1;
+  d->f_eval += 1;
+
+}
+
+static void nabla_F_ZIT(void* problem, int n, double* restrict l, NumericsMatrix* restrict nabla_F)
+{
+  double* restrict nabla_F_dense = nabla_F->matrix0;
+  data_ZIT* d = (data_ZIT*) VI_get_env(problem);
+
+  double l0 = l[0];
+  double l1 = l[1];
+  double xk1 = d->xk[1];
+  double invR = 1.0/(1.0 - d->kappa*l0*l1);
+  double invR2 = invR*invR;
+  double rr1 = (d->mu1*l0 + l1)*invR;
+
+  double v_gamma = xk1 + d->gamma*d->h*rr1;
+
+  nabla_F_dense[1] = d->h*(d->mu1+d->kappa*l1*l1)*invR2;
+  nabla_F_dense[1 + 2] = d->h*(1.0 + d->kappa*l0*l0)/invR2;
+//  nabla_F_dense[0] = d->h*(-d->kappa*l1*v_gamma + d->gamma*d->h*(1.0-d->kappa*l0*l1)*nabla_F_dense[1]);
+//  nabla_F_dense[0 + 2] = d->h*(-d->kappa*l0*v_gamma + d->gamma*d->h*(1.0-d->kappa*l0*l1)*nabla_F_dense[1 + 2]);
+  nabla_F_dense[0] = d->h*(-d->kappa*l1*v_gamma + d->gamma*d->h*(1.0-d->kappa*l0*l1)*nabla_F_dense[1]);
+  nabla_F_dense[0 + 2] = d->h*(-d->kappa*l0*v_gamma + d->gamma*d->h*(1.0-d->kappa*l0*l1)*nabla_F_dense[1 + 2]);
+  d->nabla_eval += 1;
+}
+
+int main(void)
+{
+  int info = 0;
+
+  /* Set solver options */
+  SolverOptions options;
+
+  solver_options_set(&options, @SOLVER_ID@);
+
+  /* Create a VariationalInequality */
+
+  VariationalInequality* problem = variationalInequality_new(N);
+  problem->F = &F_ZIT;
+  problem->compute_nabla_F = &nabla_F_ZIT;
+
+  double xk[] = {1., 10.0};
+  double t = 0.0;
+  double T = 1.0;
+
+  double z[N] = {0.};
+  double F[N] = {0.};
+  double nablaF[N*N] = {0.};
+
+  data_ZIT sim_data;
+
+  sim_data.id = -1;
+  sim_data.xk = xk;
+  sim_data.h = 1e-3;
+  sim_data.theta = 1.0;
+  sim_data.gamma = 1.0;
+  sim_data.g = 9.81;
+  sim_data.mu1 = 2.0;
+  sim_data.kappa = .7;
+
+ options.dparam[0] = N*DBL_EPSILON;
+ options.iparam[SICONOS_IPARAM_PREALLOC] = 1;
+//  options.iparam[0] = 250;
+
+//  options.iparam[3] = 2;
+//  options.iparam[4] = 10;
+
+  problem->env = &sim_data;
+  problem->nabla_F = NM_create_from_data(NM_DENSE, N, N, nablaF);
+
+  box_constraints box;
+  double lb[] = {-1.0, -1.0};
+  double ub[] = {1.0, 1.0};
+  box.id = SICONOS_SET_BOX;
+  box.lb = lb;
+  box.ub = ub;
+  problem->set = &box;
+
+  unsigned k = 0;
+
+  while ((t <= T) && info == 0)
+  {
+    k++;
+    info = variationalInequality_driver(problem, z, F, &options);
+    //printf("step %d, iter = %d, error = %le\n", k, options.iparam[1], options.dparam[1]);
+    if (info > 0)
+    {
+      printf("VI_ZIT1 info = %d\n", info);
+      /* do some magic shit to force the algo to fix a solution */
+      z[0] = copysign(1.0, -xk[0]);
+      z[1] = copysign(1.0, -xk[1]);
+
+      info = variationalInequality_driver(problem, z, F, &options);
+
+      if (info > 0)
+      {
+        printf("step %d, iter = %d, error = %le\n", k, options.iparam[1], options.dparam[1]);
+        printf("VI_ZIT1 with solver @SOLVER_ID@ failed completly\n");
+        printf("VI_ZIT1 failure at xk[0] =  %.*e; xk[1] =  %.*e\n", DECIMAL_DIG, xk[0], DECIMAL_DIG, xk[1]);
+      }
+
+    }
+    xk[0] = F[0];
+    xk[1] = F[1];
+    t = k*sim_data.h;
+  }
+  printf("VI_ZIT2 final values xk[0] =  %.*e; xk[1] =  %.*e\n", DECIMAL_DIG, xk[0], DECIMAL_DIG, xk[1]);
+  solver_options_delete(&options);
+
+  free(problem->nabla_F);
+  problem->nabla_F = NULL;
+  free(problem);
+  problem = NULL;
+  return info;
+}

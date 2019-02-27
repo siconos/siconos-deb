@@ -43,7 +43,6 @@ Rules-Requires-Root: no
 Package: siconos
 Architecture: any
 Multi-Arch: allowed
-Section: science
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          ${python3:Depends},
@@ -76,7 +75,6 @@ Description: modeling and simulation of nonsmooth dynamical systems (simulation 
 Package: siconos-mechanics-tools
 Architecture: any
 Multi-Arch: allowed
-Section: science
 Depends: ${misc:Depends},
          ${shlibs:Depends},
          ${python3:Depends},

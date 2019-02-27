@@ -79,7 +79,7 @@ Files: externals/hairer/*
 Copyright: 2003 Ernst Hairer
 License: BSD-3-clause
 
-License: externals/sort/*
+Files: externals/sort/*
 Copyright: 2010-2014 Christopher Swenson
            2012 Vojtech Fried
            2012 Google Inc.

@@ -34,7 +34,7 @@ Build-Depends: debhelper (>= 11),
                python3-vtk7,
                python3-h5py,
                python3-dev
-Standards-Version: 4.2.1
+Standards-Version: 4.3.0
 Vcs-Browser: https://salsa.debian.org/science-team/siconos
 Vcs-Git: https://salsa.debian.org/science-team/siconos.git
 Homepage: https://nonsmooth.gricad-pages.univ-grenoble-alpes.fr/siconos/index.html
